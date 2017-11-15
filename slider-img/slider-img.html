@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../reset.css">
+    <style>
+        .slide-img {
+            width: 1000px;
+            height: 500px;
+            overflow: hidden;
+            position: relative;
+            margin: 20px auto;
+        }
+
+        ul {
+            transition: all .5s ease;
+        }
+
+        li {
+            float: left;
+        }
+
+        .slide-arrow div {
+            width: 50px;
+            height: 100px;
+            position: absolute;
+            margin: auto;
+            top: 0;
+            bottom: 0;
+            background: url("http://i1.bvimg.com/1949/4d860a3067fab23b.jpg") no-repeat;
+        }
+
+        .arrow-right {
+            transform: rotate(180deg);
+            right: 0;
+        }
+
+        .arrow-left {
+            left: 0;
+        }
+        .slide-option{
+            position: absolute;
+            bottom: 10px;
+            width: 100%;
+            left: 0;
+            text-align: center;
+        }
+        .slide-option span{
+            display: inline-block;
+            width: 14px;
+            height: 14px;
+            border-radius: 100%;
+            background: #ccc;
+            margin: 0 10px;
+        }
+        .slide-option .active{
+            background: #09f;
+        }
+    </style>
+</head>
+<body>
+<div class="slide-img clear" id="slide-img">
+    <!--用tran这个class控制ul是否含有过渡效果，样式已经写好-->
+    <ul id="slide-img-ul">
+        <!--遍历出来的图片-->
+        <li style="width: 1000px;"><a href="javascript:;"><img src="images/timg1.jpg" class="slider-img"/></a></li>
+        <li style="width: 1000px;"><a href="javascript:;"><img src="images/timg2.jpg" class="slider-img"/></a></li>
+        <li style="width: 1000px;"><a href="javascript:;"><img src="images/timg3.jpg" class="slider-img"/></a></li>
+        <li style="width: 1000px;"><a href="javascript:;"><img src="images/timg4.jpg" class="slider-img"/></a></li>
+    </ul>
+    <div class="slide-option">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+    <div class="slide-arrow">
+        <div class="arrow-left"></div>
+        <div class="arrow-right"></div>
+    </div>
+</div>
+</body>
+<script type="text/javascript">
+    window.onload=function () {
+        var oUl=document.querySelector('#slide-img-ul');
+        var oLi=oUl.querySelectorAll('li');
+        var oSpan=document.querySelector('.slide-option').querySelectorAll('span');
+        var oArrowLeft=document.querySelector('.arrow-left');
+        var oArrowRight=document.querySelector('.arrow-right');
+        oUl.style.width='4000px';
+        oArrowLeft.addEventListener('click',function () {
+            switchDo('reduce');
+        })
+        oArrowRight.addEventListener('click',function () {
+            switchDo();
+        })
+        var timer=null,nowIndex=0;
+        function switchDo(reduce){
+            clearInterval(timer);
+            //设置样式
+            oUl.style.transform='translate3d(-'+(1000*nowIndex)+'px,0,0)';
+            for (var i=0;i<oSpan.length;i++){
+                if(i===nowIndex){
+                    oSpan[i].className='active';
+                }
+                else{
+                    oSpan[i].className='';
+                }
+            }
+            //根据reduce判断this.nowIndex的增加或者减少！
+            if(reduce==='reduce'){
+                if(nowIndex===0){
+                    nowIndex=oLi.length-1;
+                }
+                else{
+                    nowIndex--;
+                }
+            }
+            else{
+                if(nowIndex===oLi.length-1){
+                    nowIndex=0;
+                }
+                else{
+                    nowIndex++;
+                }
+            }
+            timer=setInterval(function () {
+                switchDo();
+            },4000)
+        }
+        switchDo();
+    }
+</script>
+</html>

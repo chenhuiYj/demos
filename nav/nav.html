@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<link rel="stylesheet" href="../reset.css">
+<style>
+    .nav{
+        position: relative;
+    }
+.nav li{
+    float: left;
+    width: 100px;
+    height: 40px;
+    line-height: 40px;
+    color: #fff;
+    text-align: center;
+    background: #09f;
+    cursor: pointer;
+}
+    .nav span{
+        position: relative;
+        z-index: 2;
+    }
+    .nav .slider{
+        position: absolute;
+        transition: all .5s cubic-bezier(0.4, -0.3, 0.57, 1.38);
+        width: 100px;
+        height: 40px;
+        background: #f90;
+        top: 0;
+        left: 0;
+        z-index: 1;
+    }
+</style>
+<body>
+<div class="nav clear" id="nav">
+    <ul>
+        <li><span>Tab One</span></li>
+        <li><span>Tab Two</span></li>
+        <li><span>Tab Three</span></li>
+        <li><span>Tab four</span></li>
+        <li><span>Tab five</span></li>
+        <li><span>Tab six</span></li>
+    </ul>
+    <div class="slider"></div>
+</div>
+</body>
+<script type="text/javascript">
+    var oDiv=document.querySelector("#nav"),oLi=oDiv.querySelectorAll("li"),oSlider=document.querySelector(".slider");
+    oDiv.addEventListener("mouseleave",function () {
+        oSlider.style.transform='translate3d(0,0,0)';
+    })
+    for(var i=0;i<oLi.length;i++){
+        oLi[i].index=i;
+        oLi[i].addEventListener("mouseenter",function (e) {
+            oSlider.style.transform='translate3d('+this.index*100+'px,0,0)';
+        })
+    }
+</script>
+</html>

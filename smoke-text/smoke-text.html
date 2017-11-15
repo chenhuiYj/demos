@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        body {
+            background: #333;
+            overflow: hidden;
+            padding-top: 200px;
+            color: transparent;
+            backface-visibility: hidden;
+        }
+
+        #test {
+            text-align: center;
+            padding-top: 200px;
+
+        }
+
+        span {
+            display: inline-block;
+            font-size: 100px;
+            animation: smoke 5s 3s both;
+            text-shadow: 0 0 0 whitesmoke;
+        }
+
+        @keyframes smoke {
+            60% {
+                text-shadow: 0 0 40px whitesmoke;
+            }
+            to {
+                transform: translate3d(15rem, -8rem, 0) rotate(-40deg) skewX(70deg) scale(1.5);
+                text-shadow: 0 0 20px whitesmoke;
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+<div id="test">
+    <span>守</span>
+    <span>候</span>
+    <span>的</span>
+    <span>个</span>
+    <span>人</span>
+    <span>文</span>
+    <span>章</span>
+</div>
+</body>
+</html>

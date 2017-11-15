@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<style>
+    body{
+        background: #ccc;
+    }
+    h1 {
+        color: white;
+        text-transform: uppercase;
+        margin-top: 100px;
+        text-align: center;
+        font-size: 6rem;
+        line-height: 1;
+        animation: letterspacing 1s 7 alternate ease-in-out;
+        display: block;
+        letter-spacing: .5rem;
+    }
+
+    @keyframes letterspacing {
+        0% {
+            letter-spacing: -72px;
+            filter: blur(20px);
+        }
+
+        40% {
+            filter: blur(6px);
+        }
+
+        80% {
+            letter-spacing: 8px;
+            filter: blur(0);
+        }
+    }
+</style>
+<body>
+<div id="text">
+    <h1>{{testText}}</h1>
+</div>
+</body>
+<script src="../vue.min.js"></script>
+<script type="text/javascript">
+    new Vue({
+        el:'#text',
+        data:{
+            nowIndex:0,
+            testText:'欢迎浏览'
+        },
+        mounted(){
+            let _this=this;
+            let timer = setInterval(function(){
+                _this.nowIndex++;
+                switch (_this.nowIndex) {
+                    case 1:
+                        _this.testText = '守候的文章';
+                        break;
+                    case 2:
+                        _this.testText = '愿您浏览愉快';
+                        break;
+                    case 3:
+                        _this.testText = '学到知识';
+                        break;
+                }
+                if (_this.nowIndex > 3) {
+                    setTimeout(() => {
+                        clearInterval(timer);
+                    }, 2000)
+                }
+            }, 2000)
+        }
+    })
+</script>
+</html>

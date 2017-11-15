@@ -1,0 +1,31 @@
+{
+  "name": "chen-demos",
+  "version": "1.0.0",
+  "description": "个人制作的demo",
+  "dependencies": {},
+  "devDependencies": {
+    "babel-preset-es2015": "^6.24.1",
+    "browser-sync": "^2.18.12",
+    "gulp": "^3.9.1",
+    "gulp-babel": "^6.1.2",
+    "gulp-clean-css": "^3.7.0",
+    "gulp-file-include": "^1.1.0",
+    "gulp-modify-css-urls": "^0.2.2",
+    "gulp-sass": "^3.1.0",
+    "gulp-sourcemaps": "^2.6.0",
+    "gulp-uglify": "^3.0.0",
+    "node-sass": "^4.5.3"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "browser-sync start --server --files '**/*.js,**/*.html'",
+    "prod": "webpack",
+    "postprod": "gulp macSend"
+  },
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "author": "chen",
+  "license": "ISC"
+}

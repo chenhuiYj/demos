@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>vue-所谓的数独</title>
+    <link rel="stylesheet" href="../reset.css">
+    <style>
+        li{
+            list-style-type: none;
+        }
+        .shake {
+            animation: shake-opacity 500ms 1 ease-in-out;
+        }
+        @keyframes shake-opacity {
+            0% {
+                transform: translate(0px, 0px) rotate(0deg);
+                opacity: 0.6;
+            }
+            10% {
+                transform: translate(-2px, -1px) rotate(-0.5deg);
+                opacity: 0.5;
+            }
+            20% {
+                transform: translate(-4px, 4px) rotate(1.5deg);
+                opacity: 0.4;
+            }
+            30% {
+                transform: translate(-4px, -1px) rotate(-1.5deg);
+                opacity: 0.8;
+            }
+            40% {
+                transform: translate(-2px, -1px) rotate(-2.5deg);
+                opacity: 0.3;
+            }
+            50% {
+                transform: translate(-4px, 1px) rotate(-2.5deg);
+                opacity: 0.5;
+            }
+            60% {
+                transform: translate(-2px, 4px) rotate(0.5deg);
+                opacity: 0.1;
+            }
+            70% {
+                transform: translate(-3px, 1px) rotate(-0.5deg);
+                opacity: 0.4;
+            }
+            80% {
+                transform: translate(0px, 0px) rotate(-0.5deg);
+                opacity: 0.5;
+            }
+            90% {
+                transform: translate(2px, -1px) rotate(-2.5deg);
+                opacity: 0.8;
+            }
+        }
+        .num-box {
+            margin: 0 auto;
+            width: 540px;
+            position: relative;
+        }
+        .num-box .num-check {
+            position: absolute;
+            width: 180px;
+            box-shadow: 0 0 10px 0 #000;
+            left: 0;
+            top: 0;
+        }
+        .num-box .num-check li {
+            box-sizing: border-box;
+            float: left;
+            background: #fff;
+            color: #58B7FF;
+            width: 60px;
+            height: 60px;
+            text-align: center;
+            line-height: 60px;
+            font-size: 24px;
+            border: 1px solid #58B7FF;
+            cursor: pointer;
+            transition: all .5s;
+        }
+        .num-box .num-check li:hover {
+            color: #fff;
+            background: #58B7FF;
+            border: 1px solid #fff;
+        }
+        .num-row {
+            font-size: 0;
+        }
+        .num-row:hover .num-col, .num-row:hover .num-col.no, .num-row:hover .num-col.cur-col {
+            background: #0068b7;
+        }
+        .num-row .num-col {
+            width: 60px;
+            height: 60px;
+            line-height: 60px;
+            float: left;
+            box-sizing: border-box;
+            text-align: center;
+            background: #58B7FF;
+            color: #fff;
+            font-size: 24px;
+            font-weight: bold;
+            border: 1px solid #ccc;
+        }
+        .num-row .num-col.no {
+            background: #ccc;
+            border: 1px solid #fff;
+        }
+        .num-row .num-col.err {
+            color: #ff4949;
+        }
+        .num-row .num-col.cur-col {
+            background: #0068b7;
+        }
+        .num-row .num-col.cur {
+            background: #fff !important;
+        }
+    </style>
+</head>
+<body>
+<div class="num-box" v-show="numShow" @mouseleave="hoverCol=''" :class="{'shake':isShake}" id="num">
+    <div v-for="row,index in allNum" class="num-row chearfix">
+        <div v-for="num1,indexSub in row"
+             :class="{'no':num1==='','cur':curRow===index&&indexSub===curCol,'cur-col':hoverCol===indexSub,'err':(errorOption1.x===index&&errorOption1.y===indexSub)||(errorOption2.x===index&&errorOption2.y===indexSub)||(errorOption3.x===index&&errorOption3.y===indexSub)}"
+             @click="showCheck(index,indexSub)" @mouseenter="hoverCol=indexSub;" class="num-col">
+            {{allNumText[index][indexSub]}}
+
+        </div>
+    </div>
+    <div class="num-check chearfix" :style="{'top':(curRow+1)*60+'px','left':(curCol+1)*60+'px'}"
+         v-show="checkShow">
+        <ul>
+            <li @click="inputText(1)">1</li>
+            <li @click="inputText(2)">2</li>
+            <li @click="inputText(3)">3</li>
+            <li @click="inputText(4)">4</li>
+            <li @click="inputText(5)">5</li>
+            <li @click="inputText(6)">6</li>
+            <li @click="inputText(7)">7</li>
+            <li @click="inputText(8)">8</li>
+            <li @click="inputText(9)">9</li>
+        </ul>
+    </div>
+</div>
+</body>
+<script src="../vue.min.js"></script>
+<script>
+    new Vue({
+        el:'#num',
+        data:{
+                name: 'welcome',
+                testText: '欢迎来到',
+                nowIndex: 0,
+                allNum: [],
+                answer: [],
+                allNumText: [],
+                curRow: '',
+                curCol: '',
+                checkShow: false,
+                hoverCol: '',
+                hoverRow: 0,
+                numShow: true,
+                errorOption1: {},
+                errorOption2: {},
+                errorOption3: {},
+                isErr: false,
+                isShake: false
+        },
+        methods: {
+            showCheck(i1, i2){
+                if (this.allNum[i1][i2] !== '') {
+                    return
+                }
+                if (i1 === this.curRow && i2 === this.curCol) {
+                    this.checkShow = false;
+                    this.curRow = '';
+                    this.curCol = '';
+                }
+                else {
+                    this.checkShow = true;
+                    this.curRow = i1;
+                    this.curCol = i2;
+                }
+            },
+            inputText(_text){
+                //检查行
+                let _row = this.curRow, _col = this.curCol;
+                this.curRow = '';
+                this.curCol = '';
+                this.isErr = false;
+                this.errorOption1 = {
+                    x: '',
+                    y: '',
+                }
+                this.errorOption2 = {
+                    x: '',
+                    y: '',
+                }
+                this.errorOption3 = {
+                    x: '',
+                    y: '',
+                }
+                this.allNumText[_row][_col] = _text;
+                let rowCheck = Object.assign(this.allNumText[_row], []);
+                this.checkShow = false;
+                for (let i = 0, len = rowCheck.length; i < len; i++) {
+                    if (_text === rowCheck[i] && _col !== i) {
+                        this.isErr = true;
+                        this.isShake = true;
+                        this.errorOption1 = {
+                            x: _row,
+                            y: _col,
+                        }
+                        this.errorOption2 = {
+                            x: _row,
+                            y: i,
+                        }
+                    }
+                }
+                //检查列
+                let colCheck = [];
+                for (let i = 0, len = this.allNumText.length; i < len; i++) {
+                    colCheck.push(this.allNumText[i][_col]);
+                }
+                for (let i = 0, len = colCheck.length; i < len; i++) {
+                    if (_text === colCheck[i] && _row !== i) {
+                        this.isErr = true;
+                        this.isShake = true;
+                        this.errorOption3 = {
+                            x: i,
+                            y: _col,
+                        }
+                    }
+                }
+                if (this.isErr) {
+                    setTimeout(() => {
+                        this.isShake = false;
+                    }, 1000)
+                    return;
+                }
+
+                rowCheck = rowCheck.filter(item => item !== '');
+                if (rowCheck.length !== 9) {
+                    console.log('行没完成')
+                    return;
+                }
+                //检查列
+                let coloCheck = [];
+                for (let i = 0, len = this.allNumText.length; i < len; i++) {
+                    coloCheck = [...new Set(this.allNumText[i])];
+                    coloCheck = coloCheck.filter(item => item !== '');
+                    if (coloCheck.length !== 9) {
+                        console.log('没完成')
+                        return;
+                    }
+                }
+                this.$message.success('挑战成功，但是没奖品');
+                this.numShow = false;
+            }
+        },
+        mounted(){
+            let arr1 = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+            let row = [], rowCol = 0;
+            for (let i = 0, len = arr1.length; i < len; i++) {
+                row = Object.assign([], arr1);
+                this.allNum.push(row);
+                rowCol = arr1.splice(0, 1)[0];
+                arr1.push(rowCol)
+            }
+            //打乱行
+            this.allNum.sort((n1, n2) => Math.random() - 0.5);
+            function randomText() {
+                let rondomIndex = 0, rondomIndexAfter = 0;
+                rondomIndex = Math.floor(Math.random() * 9);
+                function randomDo() {
+                    rondomIndexAfter = Math.floor(Math.random() * 9);
+                    if (rondomIndexAfter === rondomIndex) {
+                        randomDo();
+                    }
+                }
+
+                randomDo();
+                return [rondomIndex, rondomIndexAfter]
+            }
+
+            //打乱列
+            let randomArr = [], nowValue = 0;
+            for (let i = 0; i < 9; i++) {
+                randomArr = Object.assign([], randomText());
+                for (let j = 0, len = this.allNum.length; j < len; j++) {
+                    nowValue = this.allNum[j][randomArr[0]];
+                    this.allNum[j][randomArr[0]] = this.allNum[j][randomArr[1]];
+                    this.allNum[j][randomArr[1]] = nowValue;
+                }
+            }
+
+            //随机掏空
+//            let colOption=[0,1,2,3,4,5,6,7,8];
+//
+//			let _opx,_opy,allOption=[];
+//            for(let i=0;i<9;i++) {
+//                _opx = i;
+//                _opy = colOption.splice(Math.floor(Math.random() * colOption.length), 1)[0];
+//                this.answer.push({
+//                    x: _opx,
+//                    y: _opy,
+//                    text: this.allNum[_opx][_opy]
+//                });
+//                this.allNum[_opx][_opy] = '';
+//                allOption.push(_opx+''+_opy);
+//            }
+//            //第二次掏空
+//            let rowOption2=[0,1,2,3,4,5,6,7,8],colOption2=[0,1,2,3,4,5,6,7,8],_opxy=[];
+            //检测是否有重复坐标
+//            function checkSet(_x) {
+//                let _y;
+//                function checkSetDo(){
+//                    _y=Math.floor(Math.random() * colOption2.length);
+//                    if(allOption.indexOf(_x+''+_y)!==-1){
+//                        checkSetDo();
+//                    }
+//                }
+//                checkSetDo();
+//                return [_x,_y];
+//            }
+//            for(let i=0;i<9;i++){
+//                _opxy=checkSet(i);
+//                _opx = rowOption2.splice(0, 1)[0];
+//                _opy = colOption2.splice(_opxy[1], 1)[0];
+//                this.allNum[_opx][_opy] = '';
+//                this.answer.push({
+//                    x: _opx,
+//                    y: _opy,
+//                    text: this.allNum[_opx][_opy]
+//                });
+//			}
+
+            //记录所有坐标
+            let rowText = '', arrText = []
+            for (let i = 0; i < 9; i++) {
+                rowText = ''
+                for (let j = 0; j < 9; j++) {
+                    rowText += i + '-' + j + ',';
+                }
+                arrText.push(rowText.substr(0, rowText.length - 1))
+            }
+            //随机掏空
+            let nowItme = [], _option, nowOption = [];
+            for (let i = 0; i < 9; i++) {
+                //抽取当前行的所有坐标
+                nowItme = arrText[i].split(',');
+                nowOption = [];
+                ////前行的随机两个坐标掏空
+                for (let j = 0; j < 2; j++) {
+                    //抽取当前行的随机一个坐标
+                    _option = Math.floor(Math.random() * nowItme.length);
+                    //分割坐标
+                    nowOption = nowItme[_option].split("-");
+                    this.allNum[nowOption[0]][nowOption[1]] = '';
+                }
+
+            }
+            this.allNumText = JSON.parse(JSON.stringify(this.allNum));
+
+
+            let timer = setInterval(() => {
+                this.nowIndex++;
+                switch (this.nowIndex) {
+                    case 1:
+                        this.testText = '找原料网';
+                        break;
+                    case 2:
+                        this.testText = '后台管理系统';
+                        break;
+                    case 3:
+                        this.testText = '请开始你的表演';
+                        break;
+                }
+                if (this.nowIndex > 3) {
+                    setTimeout(() => {
+                        clearInterval(timer);
+                    }, 2000)
+                }
+            }, 2000)
+            // 基于准备好的dom，初始化echarts实例
+//            let date=[],dateData=["1月","2月","3月","4月","5月","6月","7月","8月","9月","10月","11月","12月"];
+//            let dateDataRet=Object.assign([],dateData).reverse();
+//            let yearText=new Date().getFullYear();
+//            let now=new Date().getMonth();
+//            for(let i=0;i<6;i++){
+//                if(now-i<0){
+//                    date.push(yearText-1+'年'+dateDataRet[Math.abs(now-i)-1]);
+//                }
+//                else{
+//                    date.push(yearText+'年'+dateData[now-i]);
+//                }
+//
+//            }
+//            date.reverse();
+//            let myChart = echarts.init(document.getElementById('main'));
+//            // 绘制图表
+//            myChart.setOption({
+//                title: { text: '找原料网月销售量统计表' },
+//                tooltip: {},
+//                yAxis: {
+//                    name:'销售额（万）'
+//                },
+//                xAxis: {
+//                    name:'时间',
+//                    data: date
+//                },
+//                series: [{
+//                    type: 'line',
+//                    data: [500, 2000, 3600, 1000, 1000, 2000]
+//                }]
+//            });
+        }
+    })
+</script>
+</html>

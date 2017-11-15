@@ -1,0 +1,68 @@
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title></title>
+    <style>
+        .box ul li{
+            width: 80px;
+            height: 40px;
+            background-color: red;
+            overflow: hidden;
+        }
+        .box ul .long{
+            width: 400px;
+        }
+        .box ul li button{
+            width: 80px;
+            height: 40px;
+        }
+        .box ul li input{
+            width: 80px;
+            height: 40px;
+            float: right;
+        }
+    </style>
+</head>
+<body>
+<div>
+    <div id="App">
+        <div class="box">
+            <ul>
+                <!--判断now是不是item,如果等于，加上long类名，显示更长的长度（出现红色区域）-->
+                <li v-for="(item,index) in aaa" :class="{'long':item===now}">
+                    <!--设置now等于item-->
+                    <button @click="now=item">显示</button>
+                    <input type="button" value="隐藏"  @click="now=''">
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+</body>
+<!--vue文件自己引入-->
+<script src="vue.min.js"></script>
+<script>
+        var App=new Vue({
+            el:'#App',
+            data:{
+                now:'',
+                aaa:[
+                    {
+                        "id":"1"
+                    },
+                    {
+                        "id":"2"
+                    },
+                    {
+                        "id":"3"
+                    }
+                ]
+            },
+            methods:{
+
+            }
+
+
+        });
+</script>
+</html>

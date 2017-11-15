@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<style>
+    body{
+        background: #ccc;
+    }
+    h1 {
+        color: white;
+        text-transform: uppercase;
+        margin-top: 100px;
+        text-align: center;
+        font-size: 6rem;
+        line-height: 1;
+        animation: letterspacing 1s 7 alternate ease-in-out;
+        display: block;
+        letter-spacing: .5rem;
+    }
+
+    @keyframes letterspacing {
+        0% {
+            letter-spacing: -6rem;
+            filter: blur(1rem);
+        }
+
+        40% {
+            filter: blur(.3rem);
+        }
+
+        80% {
+            letter-spacing: .5rem;
+            filter: blur(0rem);
+        }
+    }
+</style>
+<body>
+<div id="text">
+    <h1>欢迎浏览</h1>
+</div>
+</body>
+<script>
+    var oH1=document.querySelector('h1'),nowIndex=0;
+    console.log(oH1)
+    var timer = setInterval(function () {
+        nowIndex++;
+        switch (nowIndex) {
+            case 1:
+                oH1.innerHTML = '守候的文章';
+                break;
+            case 2:
+                oH1.innerHTML = '愿您浏览愉快';
+                break;
+            case 3:
+                oH1.innerHTML = '学到知识';
+                break;
+        }
+        //
+        if (nowIndex > 3) {
+            setTimeout(() => {
+                clearInterval(timer);
+            }, 2000)
+        }
+    }, 2000)
+</script>
+</html>
