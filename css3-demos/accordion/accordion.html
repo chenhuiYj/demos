@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ec-css手风琴</title>
+    <link rel="stylesheet" href="../../reset.css">
+    <style>
+        .demo-slide-tab {
+            width: 500px;
+            margin: 0 auto;
+        }
+
+        .demo-slide-tab ul {
+            width: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        .demo-slide-tab li {
+            list-style: none outside none;
+            display: block;
+            margin: 0;
+            padding: 0;
+            height: 40px;
+            width: 100%;
+            overflow: hidden;
+            background: #f0f0f0;
+            transition: height 0.3s ease-in-out;
+        }
+
+        .demo-slide-tab h3 {
+            margin: 0;
+            padding: 10px;
+            height: 19px;
+            border-top: 1px solid #f0f0f0;
+            color: #000;
+            background: #ccc;
+            background: linear-gradient(#0099ff, #71d1fd);
+            custor: pointer;
+            position: relative;
+        }
+
+        .demo-slide-tab h3:before {
+            content: "";
+            border-width: 5px;
+            border-color: transparent transparent transparent #000;
+            position: absolute;
+            right: 10px;
+            top: 15px;
+            width: 0;
+            height: 0;
+        }
+
+        .demo-slide-tab div {
+            margin: 0;
+            voerflow: auto;
+            padding: 10px;
+            max-height: 220px;
+        }
+
+        .demo-slide-tab li:hover {
+            height: 280px;
+        }
+
+        .demo-slide-tab li:hover h3 {
+            color: #fff;
+            background: #000;
+            background: linear-gradient(#faa305, #fcc054);
+        }
+
+        .demo-slide-tab li:hover h3:before{
+            border-color: transparent transparent transparent #fff;
+            transform: rotate(90deg);
+        }
+    </style>
+</head>
+<body>
+<div class="demo-slide-tab">
+    <ul>
+        <li>
+            <h3>title 1</h3>
+            <div>content1</div>
+        </li>
+        <li>
+            <h3>title 2</h3>
+            <div>content2conte nt2content2content2content2conten t2content2content2content2content2conte nt2content2content2content2conte nt2content2content2content2 content2content2content 2content2content2content2content2conten t2content2c ontent2content2content2</div>
+        </li>
+        <li>
+            <h3>title 3</h3>
+            <div>content3</div>
+        </li>
+        <li>
+            <h3>title 4</h3>
+            <div>content4.</div>
+        </li>
+    </ul>
+</div>
+</body>
+</html>

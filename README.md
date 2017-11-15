@@ -9,7 +9,7 @@
 
 ## 目录说明
 
-### vue和其它demos
+### vue-demos:基于vue的demos
 
 blur-text:文字模糊
 
@@ -18,8 +18,6 @@ nav:滑动导航
 shopping-card:购物车清单
 
 slider-img:图片轮播
-
-smoke-text:烟雾文字效果
 
 sudoku:所谓的数独
 
@@ -55,6 +53,15 @@ taobao-ad：防淘宝广告
 
 tiggle：展开与收起
 
+### css3:css3的demos
+
+smoke-text:烟雾文字
+
+accordion:手风琴
+
+marquee:跑马灯
+
+nav-select:导航下拉
 
 ### es6-demos:es6的demos
 

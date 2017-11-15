@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ec-css导航栏</title>
+    <link rel="stylesheet" href="../../reset.css">
+    <style>
+        .demo-nav {
+            width: 500px;
+            margin: 0 auto;
+        }
+
+        .demo-nav li {
+            line-height: 40px;
+            padding: 0 10px;
+            background: #09f;
+            color: #fff;
+            position: relative;
+        }
+
+        .demo-nav li ul {
+            position: absolute;
+            left: 0;
+            top: 40px;
+            /*height: 0;*/
+            /*overflow: hidden;*/
+        }
+
+        .demo-nav li ul li {
+            float: none;
+            transition: all .3s;
+            background: #f90;
+            opacity: 0;
+        }
+
+        .demo-nav li ul li:nth-of-type(1n) {
+            transform: translate3d(100%, 0, 0);
+        }
+
+        .demo-nav li ul li:nth-of-type(2n) {
+            transform: translate3d(-100%, 0, 0);
+        }
+
+        .demo-nav li:hover ul {
+            /*overflow: visible;*/
+        }
+
+        .demo-nav li:hover ul li {
+            opacity: 1;
+            transform: translate3d(0, 0, 0);
+        }
+        /*最多10级，超过10级的，得写js*/
+        .demo-nav li ul li:nth-of-type(2) {
+            transition-delay: .1s;
+        }
+
+        .demo-nav li ul li:nth-of-type(3) {
+            transition-delay: .2s;
+        }
+
+        .demo-nav li ul li:nth-of-type(4) {
+            transition-delay: .3s;
+        }
+        .demo-nav li ul li:nth-of-type(5) {
+            transition-delay: .4s;
+        }
+
+        .demo-nav li ul li:nth-of-type(6) {
+            transition-delay: .5s;
+        }
+
+        .demo-nav li ul li:nth-of-type(7) {
+            transition-delay: .6s;
+        }
+        .demo-nav li ul li:nth-of-type(8) {
+            transition-delay: .7s;
+        }
+
+        .demo-nav li ul li:nth-of-type(9) {
+            transition-delay: .8s;
+        }
+
+        .demo-nav li ul li:nth-of-type(10) {
+            transition-delay: .9s;
+        }
+    </style>
+</head>
+<body>
+<div class="demo-nav">
+    <ul class="menu fllil">
+        <li>HTML5
+            <ul class="sub-menu">
+                <li>article</li>
+                <li>section</li>
+                <li>menu</li>
+                <li>nav</li>
+            </ul>
+        </li>
+        <li>CSS3
+            <ul class="sub-menu">
+                <li>动画</li>
+                <li>过渡</li>
+                <li>圆形</li>
+                <li>边框</li>
+            </ul>
+        </li>
+        <li>Javascript
+            <ul class="sub-menu">
+                <li>字符串</li>
+                <li>数组</li>
+                <li>对象</li>
+                <li>布尔</li>
+            </ul>
+        </li>
+        <li>Jquery
+            <ul class="sub-menu">
+                <li>动画</li>
+                <li>特效</li>
+                <li>AJAX</li>
+            </ul>
+        </li>
+        <li>VUE</li>
+    </ul>
+    <div class="clear"></div>
+</div>
+</body>
+</html>

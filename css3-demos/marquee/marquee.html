@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ec-css无缝滚动</title>
+    <link rel="stylesheet" href="../../reset.css">
+    <style>
+        .demo-marquee {
+            width: 600px;
+            margin: 20px auto;
+            overflow: hidden;
+        }
+
+        .demo-marquee ul {
+            width: 1600px;
+            animation: ec-marquee-move 6s infinite linear;
+        }
+
+        .demo-marquee ul:hover {
+            animation-play-state: paused;
+        }
+
+        @keyframes ec-marquee-move {
+            0% {
+                transform: translateX(0px);
+            }
+            100% {
+                transform: translateX(-800px);
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="demo-marquee">
+    <ul class="fllil">
+        <li><img src="images/1.jpg"/>
+        </li>
+        <li><img src="images/2.jpg"/>
+        </li>
+        <li><img src="images/3.jpg"/>
+        </li>
+        <li><img src="images/4.jpg"/>
+        </li>
+        <li><img src="images/1.jpg"/>
+        </li>
+        <li><img src="images/2.jpg"/>
+        </li>
+        <li><img src="images/3.jpg"/>
+        </li>
+        <li><img src="images/4.jpg"/>
+        </li>
+    </ul>
+    <div class="clear"></div>
+</div>
+</body>
+</html>
