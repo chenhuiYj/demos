@@ -1,0 +1,89 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>猜古诗</title>
+<script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>
+<style>
+div{width:600px; margin:0 auto; text-align:right;}
+div a{display:inline-block; margin-right:10px;}
+p{width:900px; margin:0 auto; padding-left:10px; text-align:center;}
+ul{width:420px; margin:0 auto; padding:0;}
+li{float:left;list-style-type:none;}
+li a,p a{display:inline-block; width:30px; height:30px; line-height:30px; text-align:center; border:1px solid #ccc; color:#333; text-decoration:none; margin:10px 0 0 10px; }
+li a.cur{background:#FF9;}
+</style>
+</head>
+
+<body>
+<div><a href="#" class="ans"><img src="images/clipboard3.png" /></a><a href="#" class="que"><img src="images/f059.png" /></a></div>
+<h2 style="text-align:center;">点击下面的文字，写出一句古诗</h2>
+<p></p>
+<ul>
+
+</ul>
+</body>
+<script type="text/javascript">
+$(document).ready(function(e) {
+var arrzi=["就","用","来","干","扰","你","怎","么","造","问","汝","怕","否","还","有","这","些","被","夜","海","沙","离","快","落","情","朝","盟","场","爱","四","戏","十","紫","百","战","龙","中","马","飞","多","一","水","力","日","半","压","夏","春","的","云","思","晓","梦","灵","住","暗","君","军","纯","狼","机","临","浩","吃","将","相","聒"];
+var arrzqM=['孤,舟,蓑,笠,翁,独,钓,寒,江,雪','不,识,庐,山,真,面,目,只,缘,身,在,此,山,中','南,朝,四,百,八,十,寺,多,少,楼,台,烟,雨,中','人,生,自,古,谁,无,死,留,取,丹,心,照,汗,青','但,愿,人,长,久,千,里,共,婵,娟','长,风,破,浪,会,有,时,直,挂,云,帆,济,沧,海','身,无,彩,凤,双,飞,翼,心,有,灵,犀,一,点,通','先,天,下,之,忧,而,忧,后,天,下,之,乐,而,乐','黄,沙,百,战,穿,金,甲,不,破,楼,兰,终,不,还','在,天,愿,作,比,翼,鸟,在,地,愿,为,连,理,枝','天,长,地,久,有,时,尽,此,恨,绵,绵,无,绝,期','海,内,存,知,己,天,涯,若,比,邻','独,在,异,乡,为,异,客,每,逢,佳,节,倍,思,亲','山,重,水,复,疑,无,路,柳,暗,花,明,又,一,村','同,是,天,涯,沦,落,人,相,逢,何,必,曾,相,识','粉,身,碎,骨,浑,不,怕,要,留,清,白,在,人,间','忽,如,一,夜,春,风,来,千,树,万,树,梨,花,开','会,当,凌,绝,顶,一,览,众,山,小','两,情,若,是,久,长,时,又,岂,在,朝,朝,暮,暮','落,红,不,是,无,情,物,化,作,春,泥,更,护,花','江,畔,何,人,初,见,月,江,月,何,年,初,照,人','宝,剑,锋,从,磨,砺,出,梅,花,香,自,苦,寒,来'];
+var arr;//定义存储数组
+var tarr=[];//定义临时随机数字
+var suiji;//定义随机数字
+	//根据随机序号，调用数组的项
+	var xuhao=Math.floor(Math.random()*arrzqM.length);
+	var arrqm=arrzqM[xuhao];
+	//在把项从字符串转数组
+	arr=arrqm.split(",");
+	//储存答案
+	var answer=arr.join(",").replace(/[,]/g,"");
+	
+    //干扰项随机添加到指定数组里面
+	while (arr.length<30)
+  	{
+		suiji = Math.floor(Math.random()*arrzi.length);
+		arr.push(arrzi.splice(suiji,1));
+  	}
+	var j = arr.length;
+	var leng=arr.length;
+	for(var i=0; i<leng;i++){
+		//定义随机的数组
+		var t = Math.floor(Math.random()*arr.length);
+		//把合成的数组随机打乱
+		tarr[i] = arr.splice(t,1);
+		$("ul").append("<li><a href='#'>"+tarr[i]+"</a></li>");
+	}
+	/*$("p a").click(function(){
+		alert($(this).text());
+	});*/
+	$("p").on('click','a',function(){
+		//alert($(this).text());
+		$("li a:contains("+$(this).text()+")").removeClass("cur");
+ 		$(this).remove();
+	});
+	$("li a").click(function(){
+		if($(this).hasClass("cur")){
+			return;
+		}
+		else{
+			var atext="";
+			$("p").append("<a href='#'>"+$(this).text()+"</a>");
+			$("p a").each(function(index, element) {
+				atext+=$(this).text();
+			});
+			if(atext.length>20){alert("选择错误！请重新选择！");$("li a").removeClass("cur");$("p a").remove();}
+			else{
+				$(this).addClass("cur");
+				//如果选择等于答案
+				if(atext==answer){alert("win");}
+				else{atext="";}
+			}
+		}
+	});
+	
+    $(".ans").click(function(){alert("答案是："+answer)});
+	$(".que").click(function(){alert("1.依次选择点击文字，使文字组成一句古诗\n2.在文字区域里面，一个文字只能被选择一次\n3.如果发现选择选择错了，可以点击已选择的文字清除")})
+	//$("p a").live("click",function(){alert("5646846")});
+});
+</script>
+</html>

@@ -1,0 +1,111 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>猜成语</title>
+<script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>
+<style>
+div{width:600px; margin:0 auto; text-align:right;}
+div a{display:inline-block; margin-right:10px;}
+h2{width:900px; margin:0 auto; height:30px; line-height:30px;}
+h2 img{height:100%;}
+p{width:900px; margin:0 auto; padding-left:10px; text-align:center;}
+ul{width:420px; margin:0 auto; padding:0;}
+li{float:left;list-style-type:none;}
+li a,p a{display:inline-block; width:30px; height:30px; line-height:30px; text-align:center; border:1px solid #ccc; color:#333; text-decoration:none; margin:10px 0 0 10px; }
+li a.cur{background:#FF9;}
+</style>
+</head>
+
+<body>
+<div><a href="#" class="ans"><img src="images/clipboard3.png" /></a><a href="#" class="que"><img src="images/f059.png" /></a></div>
+  <h2 style="text-align:center;">根据下面的字，选出各个成语</h2>
+  <p></p>
+  <ul>
+  
+  </ul>
+</body>
+<script type="text/javascript">
+$(document).ready(function(e) {
+    var arrMain=['瞒天过海','李代桃僵','画龙点睛','大名鼎鼎','昏天暗日','欢天喜地','百步穿杨','一字千金','闻鸡起舞','破釜沉舟','迫在眉睫','千钧一发','箭在铉上','笔下生花','悬崖勒马','对酒当歌','阳春白雪','负荆请罪','韬光养晦','水滴石穿','勤能补拙','温故知新','势如破竹','山明水秀','眼疾手快','皓月千里','鹤立鸡群','眉清目秀','巧夺天工','狂风暴雨','高瞻远瞩','声东击西','心旷神怡','春风化雨','鸟语花香','光明磊落','惊弓之鸟','车水马龙','秋高气爽','骄阳似火','围魏救赵','得陇望蜀','欢呼雀跃','金蝉脱壳','草木皆兵','里应外合','姹紫嫣红','一毛不拔','如花似玉','心灵手巧','灵丹妙药','生拉硬扯','口蜜腹剑','眼花缭乱','水月镜花','秋风落叶','流光溢彩','瞠目结舌','鱼目混珠','浓情蜜意'];
+	var arr=[];
+	var suiji;
+	var linshiArr;
+	var linshiWord=[];
+	var daluan=[];
+	//从总成语数组随机提取10个成语
+	while (arr.length<10)
+  	{
+		suiji = Math.floor(Math.random()*arrMain.length);
+		arr.push(arrMain.splice(suiji,1));
+  	}
+	//把数组分成一个个的成语
+	for(var i=0;i<arr.length;i++){
+		linshiArr=arr[i].join();
+		//把每一个成语拆成四个字，并合并成一个数组
+		for(var j=0;j<linshiArr.length;j++){
+			linshiWord.push(linshiArr[j]);
+		}
+	}
+	//打乱数组顺被合并的数组
+	var leng=linshiWord.length;
+	for(var i = 0;i<leng;i++){
+		
+        daluan[i] = linshiWord.splice(Math.floor(Math.random() * linshiWord.length),1);
+    }
+	for(var i=0;i<daluan.length;i++){
+		$("ul").append("<li><a href='#'>"+daluan[i]+"</a></li>");
+	}
+	/*$("p a").click(function(){
+		$("li a:contains("+$(this).text()+")").removeClass("cur");
+		$(this).remove();
+	});*/
+	$("p").on('click','a',function(){
+		//alert($(this).text());
+		$("li a:contains("+$(this).text()+")").removeClass("cur");
+ 		$(this).remove();
+	});
+	$("li a").click(function(){
+		if($(this).hasClass("cur")){return;}
+		else{
+			var text1="";
+			var xiugai=false;
+			$(this).addClass("cur");
+			//$("p").text($("p").text()+$(this).text());
+			$("p").append("<a href='#'>"+$(this).text()+"</a>");
+			
+			text1+=$("p a").text();
+				if(text1.length==4){
+					for(var i=0;i<arr.length;i++){
+							if(text1==arr[i]){
+								xiugai=true;
+								break;
+							}
+					}
+					if(xiugai==true)
+					{
+						$("a.cur").parent("li").remove();
+						$("p a").remove();
+					}
+					else{
+						alert("错误，请重新选择！");
+						$("li a").removeClass("cur");
+						$("p a").remove();
+					}
+					if($("ul li").length==0){
+						alert("win");
+					}
+				}
+		}
+	});
+	$(".ans").click(function(){
+		var answer="";
+		for(var i=0;i<arr.length;i++){
+			answer+=arr[i]+"  ,  ";
+		}
+		alert("答案是："+answer);
+	});
+	$(".que").click(function(){alert("1.依次选择点击文字，使文字组成一个成语\n2.在文字区域里面，一个文字只能被选择一次\n3.如果发现选择选择错了，可以点击已选择的文字清除\n4.如果成语正确，则对应的文字会在文字区域里面消失，直到文字区域里面没有文字")})
+});
+</script>
+</html>

@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>猜古诗</title>
+		<style>
+			.tipsBox{width:600px; margin:20px auto; text-align:right;}
+			.tipsBox a{display:inline-block; margin-right:10px;}
+			p{ margin:10px auto;text-align:center;}
+			ul{margin:0 auto; padding:0;text-align: center;}
+			ul li{display:inline-block;list-style-type:none;margin:5px;}
+			p a,.div2 a{display:inline-block; width:30px; height:30px; line-height:30px; text-align:center; border:1px solid #ccc; color:#333; text-decoration:none;}
+			ul li a{width: 50px;height: 50px;line-height: 50px;display:block;text-align:center; border:1px solid #ccc; color:#333; text-decoration:none;font-size: 20px;}
+			p a{ margin:10px 0 0 10px; }
+			p a:first-child{margin-left: 0;}
+			ul li a.cur{background:#FF9;}
+			.contentBox{width: 700px;margin: 0 auto;}
+			ol li{line-height: 36px;}
+			.div2 a{margin: 10px;}
+			.div3{text-align: center;}
+			.div3 p:nth-of-type(2){margin-bottom: 20px;}
+			.div3 input{height: 30px;box-sizing: border-box;outline: none;vertical-align: top;}
+			.div3 .btn1{color: #fff;background: #09f;border: none;width: 60px;font-family: "微软雅黑";}
+		</style>
+	</head>
+	<body>
+	<div class="tipsBox">
+		<a href="#" id="ans"><img src="images/clipboard3.png" /></a><a href="#" id="que"><img src="images/f059.png" /></a></div>
+		<div class="contentBox">
+			<h2 style="text-align:center;" id="tip"></h2>
+			<p id="pa"></p>
+			<ul id="ula">
+			
+			</ul>
+			<ol type="A" id="ola">
+				
+			</ol>
+			<div id="diva" class="div2">
+				
+			</div>
+			<div id="divFrom" class="div3">
+				
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>
+	<script type="text/javascript" src="js/mich1.1.js"></script>
+	<script type="text/javascript" src="js/subject1.js"></script>
+	<script type="text/javascript">
+		$((function(){
+			var nowNumber=1,$tip=$("#tip"),$ul=$("#ula"),$ol=$("#ola"),$p=$("#pa"),$div=$("#diva"),$answerA=$("#ans"),$queA=$("#que"),$divFrom=$("#divFrom"),nowArr1Text="",answer,alltext=[],tipText,seeAnswer=0;
+			//处理数组
+			function initArr(arr){
+				var linshiStr="",linshiArr=[];
+				for(var i=0,len=arr.length;i<len;i++){
+					linshiStr=""
+					for(var j=0,len1=arr[i].length;j<len1;j++){
+						linshiStr+=arr[i][j]+",";
+						//建立数组，为8-10题准备
+						if(alltext.indexOf(arr[i][j])==-1){alltext.push(arr[i][j])}
+					}
+					linshiStr=linshiStr.substr(0,linshiStr.length-1);
+					linshiArr.push(linshiStr);
+				}
+				return linshiArr;
+			}
+			sFive=initArr(sFive);
+			sSeven=initArr(sSeven);
+		  	//返回完成数组，1-4题
+			function getFinshArr(arr){
+				//定义存储数组,定义干扰数组
+				var arr2,arr1,arr1Text="",temporaryText,arrCount,arrSum;
+				//题目数组
+				arr2=arr.splice(Math.floor(Math.random()*arr.length),1).join(",").split(",");
+				//干扰数组
+				arr1=arr.splice(Math.floor(Math.random()*arr.length),1).join(",").split(",");
+				//判断是五言诗还是七言诗
+				if(arr2.length===10){arrCount=5;arrSum=9;$ul.width(186)}
+				else{arrCount=7;arrSum=12;$ul.width(248)}
+				//根据随机数取一例的上句或者下句
+				if(Math.ceil(Math.random()*10)<=5){arr2.splice(arrCount,arrCount);}
+				else{arr2.splice(0,arrCount);}
+				//储存答案
+				answer=arr2.join(",").replace(/[,]/g,"");
+				//如果是无言，给出9个字，如果是七言，给出11字
+				while (arr2.length<arrSum)
+			  	{
+			  		//把干扰数组添加进题目数组中
+			  		temporaryText=arr1.splice(Math.floor(Math.random()*arr1.length),1).join();
+			  		if(arr2.indexOf(temporaryText)==-1){
+			  			arr2.push(temporaryText);
+			  		}
+			  		else{
+			  			//如果干扰输入的项和题目数组的字是重复的，就随机再换一句
+			  			arr1=arr.splice(Math.floor(Math.random()*arr.length),1).join(",").split(",")
+			  		}
+			  	}
+			  	//打乱数组
+			  	arr2=myDom.upsetOrder(arr2);
+			  	//操作DOM
+			  	var linshi="";
+				for(var i=0,len=arr2.length;i<len;i++){
+					linshi=arr2.splice(Math.floor(Math.random()*arr2.length),1);
+					$ul.append("<li><a href='#'>"+linshi+"</a></li>");
+				}
+			}
+			//返回完成数组，5-7题
+			function getFinshArr2(arr){
+				var questionObj1=chooseArr.splice(Math.floor(Math.random()*arr.length),1),questionObj=questionObj1[0];
+				$p.html(questionObj.question);
+				for(var i=0,len=questionObj.answer.length;i<len;i++){
+					$ol.append("<li data-answer='"+i+"'>"+questionObj.answer[i]+"</li>")
+				}
+				answer=questionObj.truec;
+			}
+			//填字题，8-10题
+			function getFinshArr3(arr){
+				var arr2=arr.splice(Math.floor(Math.random()*arr.length),1).join(",").split(","),answerAll=[],linshi,textOption;
+				
+				if(arr2.length===10){textOption=5}else{textOption=7}
+				//随机空缺诗句中的一个字。替换成*
+				answer=arr2.splice(Math.floor(Math.random()*arr2.length),1,"*").join();
+				//创建题目诗句
+				var question=arr2.join(",").replace(/[,]/g,"");
+				//补全诗句
+				question=question.substr(0,textOption)+"，"+question.substr(textOption)+"。"
+				$p.html(question);
+				//答案库
+				answerAll.push(answer);
+				//把干扰项放进答案库
+				while(answerAll.length<30){
+					linshi=alltext[Math.floor(Math.random()*alltext.length)];
+					if(answerAll.indexOf(linshi)==-1){
+						answerAll.push(linshi)
+					}
+				}		
+				//打乱数组
+				answerAll=myDom.upsetOrder(answerAll);
+				//DOM
+				for(var i=0,len=answerAll.length;i<len;i++){
+					$div.append("<a href='javascript:;'>"+answerAll[i]+"</a>")
+				}
+			}
+			//诗句题 11-15
+			function getFinshArr4(arr){
+				var arr2,answerText,arrCount,arrSum,arr2Text;
+				arr2=arr.splice(Math.floor(Math.random()*arr.length),1).join(",").split(",");
+				//判断是五言诗还是七言诗
+				if(arr2.length===10){arrCount=5,arrSum=9}
+				else{arrCount=7,arrSum=11}
+				//根本随机数，执行上句或者下句空缺
+				if(Math.ceil(Math.random()*10)<=5){
+					answerText=arr2.splice(arrCount,arrCount);
+					$divFrom.append("<p>"+arr2.join(",").replace(/[,]/g,"")+"</p><p>____________</p>")
+				}
+				else{
+					answerText=arr2.splice(0,arrCount);
+					$divFrom.append("<p>____________</p><p>"+arr2.join(",").replace(/[,]/g,"")+"</p>")
+				}
+				$divFrom.append("<input type='text' class='text1'/><input type='button' class='btn1' value='确定'/>")
+				answer=answerText.join(",").replace(/[,]/g,"");
+			}
+			//下一步
+			function doNext(now){
+				$ul.html("");$ol.html("");$p.html("");$div.html("");$divFrom.html("");
+				if(now<=2){getFinshArr(sFive);tipText=sNumberTips[0];$tip.html(tipText);}
+				else if(now>2&&now<=4){getFinshArr(sSeven);tipText=sNumberTips[1];$tip.html(tipText);}
+				else if(now>4&&now<=7){getFinshArr2(chooseArr);tipText=sNumberTips[2];$tip.html(tipText);}
+				else if(now==8){getFinshArr3(sFive);tipText=sNumberTips[3];$tip.html(tipText);}
+				else if(now>8&&now<=10){getFinshArr3(sSeven);tipText=sNumberTips[3];$tip.html(tipText);}
+				else if(now>10&&now<=12){getFinshArr4(sFive);tipText=sNumberTips[4];$tip.html(tipText);}
+				else if(now>12&&now<=15){getFinshArr4(sSeven);tipText=sNumberTips[4];$tip.html(tipText);}
+				else{
+					if(seeAnswer){
+						$tip.html('所有题目答完了，但是你看了'+seeAnswer+'次答案，继续努力吧');
+					}
+					else{
+						$tip.html('您真厉害，所有题目答完了');
+					}
+				}
+			}
+			doNext(nowNumber);
+			$ul.on("click","a",function(){
+				if($(this).hasClass("cur")){return;}
+				else{
+					nowArr1Text=""
+					$p.append("<a href='#'>"+$(this).text()+"</a>");
+					$p.find("a").each(function(index, element) {
+						nowArr1Text+=$(this).text();
+					});
+					if(nowArr1Text.length>20){alert("选择错误！请重新选择！");$("li a").removeClass("cur");$("p a").remove();}
+					else{
+						$(this).addClass("cur");
+						//如果选择等于答案
+						console.log(answer)
+						if(nowArr1Text==answer){
+							console.log("win"+nowNumber);
+							nowNumber++;
+							doNext(nowNumber);
+						}
+						else{nowArr1Text="";}
+					}
+				}
+			});
+			$p.on('click','a',function(){
+				$ul.find("a:contains("+$(this).text()+")").removeClass("cur");
+		 		$(this).remove();
+			});
+			$ol.on("click","li",function(){
+				if($(this).attr('data-answer')==answer){
+					nowNumber++;
+					doNext(nowNumber);
+				}
+				else{
+					alert("答错了")
+				}
+			});
+			$div.on('click','a',function(){
+				if($(this).html()===answer){
+					nowNumber++;
+					doNext(nowNumber);
+				}
+				else{
+					alert("答错了");
+				}
+			});
+			$divFrom.on('click','.btn1',function(){
+				if($(this).siblings(".text1").val()==answer){
+					nowNumber++;
+					doNext(nowNumber);
+				}
+				else{
+					alert("答错了")
+				}
+			});
+			$answerA.on('click',function(){
+				alert("该题答案是："+answer);
+				seeAnswer++;
+			});
+			$queA.on('click',function(){
+				alert("提示："+tipText);
+			});
+		})());
+	</script>

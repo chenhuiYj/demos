@@ -1,0 +1,46 @@
+/*-----样式初始化-----*/
+/* Normalizes margin,padding */
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,p,blockquote,th,td{ margin:0; padding:0;}
+/* Normalizes font-size for headers */
+h1,h2,h3,h4,h5,h6{ font-size:100%; font-weight:normal;}
+ol,ul{ list-style:none;}
+address,caption,cite,code,dfn,em,strong,th,var{ font-style:normal; font-weight:normal;}
+fieldset,img{ border:0;}
+
+
+/*通用样式*/
+a{text-decoration:none; color:#333;}
+.bold { font-weight: bold; }
+.flli li { float: left; }
+.flli1 li { float: right; }
+.floadl { float: left; }
+.floadr { float: right; }
+.floadno { float: none !important; }
+.nomaginr { margin-right: 0 !important; }
+.nomaginl { margin-left: 0 !important; }
+.nomagint { margin-top: 0 !important; }
+.nomaginb { margin-bottom: 0 !important; }
+.lfont { font-size: 14px; }
+.bfont { font-size: 16px; }
+.t_l { text-align:left; }
+.t_c { text-align:center; }
+.t_r { text-align:right; }
+.unLine { text-decoration:underline; }
+.disunLine { text-decoration:none; }
+.absolute { position:absolute; }
+.relative { position:relative; }
+.wrapper { clear:both; overflow:hidden; }
+.o-hidden { overflow:hidden; }
+.invisible { visibility:hidden; }
+.hidden { display:none; }
+.block { display:block; }
+.lh1 { line-height:1px; }
+.lh10 { line-height:10px; }
+.lh15 { line-height:15px; }
+.lh18 { line-height:18px; }
+.lh20 { line-height:20px; }
+.lh25 { line-height:25px; }
+.lh30 { line-height:30px; }
+.lh35 { line-height:35px; }
+.duanlou { text-indent: 2em; }
+.clear { clear: both; }

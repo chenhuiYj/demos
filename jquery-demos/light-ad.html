@@ -1,0 +1,77 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>仿电商局部变暗展示</title>
+<link rel="stylesheet" type="text/css" href="css/css_r.css"/>
+<script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>
+<script>
+$(document).ready(function() {
+    $(".box img").mouseenter(function(){
+		$(".box img").animate({opacity:0.2,left:0},100);
+		$(this).animate({opacity:1,left:-20},100);
+	});
+	$(".box").mouseleave(function(){
+		$(".box img").animate({opacity:1,left:0},100);
+	});
+});
+</script>
+<style>
+.box{height:600px;background:#000; width:1080px; margin:0 auto;}
+.box .one,.box .two{float:left; width:180px; overflow:hidden;}
+.box .one,.box .two{height:100%;}
+.box .two .top{height:50%;}
+.box .one,.box .two .top{position:relative;}
+.box .one img,.box .two .top img{position:absolute;}
+</style>
+</head>
+
+<body>
+<div class="box">
+<!--<ul class="flli">
+<li><div class="bigli"><img src="images/b1.jpg" /></div></li>
+<li><div><img src="images/s1.jpg" /></div><div><img src="images/s2.jpg" /></div></li>
+<!--<li><div><img src="images/s2.jpg" /></div></li>
+<li><div class="bigli"><img src="images/b2.jpg" /></div></li>
+<!--<li><div><img src="images/s3.jpg" /></div><div><img src="images/s4.jpg" /></div></li>
+<li><div><img src="images/s4.jpg" /></div></li>
+<li><div class="bigli"><img src="images/b3.jpg" /></div></li>
+<li><div><img src="images/s5.jpg" /></div><div><img src="images/s6.jpg" /></div></li>
+<!--<li><div><img src="images/s6.jpg" /></div></li>
+</ul>-->
+<div class="one">
+<a href="#"><img src="images/b1.jpg" /></a>
+</div>
+<div class="two">
+<div class="top">
+<a href="#"><img src="images/s1.jpeg" /></a>
+</div>
+<div class="top">
+<a href="#"><img src="images/s2.jpg" /></a>
+</div>
+</div>
+<div class="one">
+<a href="#"><img src="images/b2.jpg" /></a>
+</div>
+<div class="two">
+<div class="top">
+<a href="#"><img src="images/s3.jpg" /></a>
+</div>
+<div class="top">
+<a href="#"><img src="images/s4.jpg" /></a>
+</div>
+</div>
+<div class="one">
+<a href="#"><img src="images/b3.jpg" /></a>
+</div>
+<div class="two">
+<div class="top">
+<a href="#"><img src="images/s5.jpg" /></a>
+</div>
+<div class="top">
+<a href="#"><img src="images/s6.jpg" /></a>
+</div>
+</div>
+</div>
+</body>
+</html>

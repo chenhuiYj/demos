@@ -9,6 +9,8 @@
 
 ## 目录说明
 
+### vue和其它demos
+
 blur-text:文字模糊
 
 nav:滑动导航
@@ -25,7 +27,36 @@ tab:选项卡
 
 todoList:小目标
 
-es6-demos
+### jquery-demos:基于jquery的demos
+
+accordion:手风琴
+
+ancient-poetry:古诗词
+
+ancient-poetry1：古诗词
+
+ancient-poetry2：古诗词
+
+drop：拖拽
+
+idiom：猜成语
+
+light-ad：仿电商广告，局部变暗
+
+magnifier：放大镜效果
+
+riddle1：谜语
+
+riddle2：谜语
+
+slider-3：广告展示，滑动展示
+
+taobao-ad：防淘宝广告
+
+tiggle：展开与收起
+
+
+### es6-demos:es6的demos
 
 ## 其它说明
 

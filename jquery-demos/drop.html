@@ -1,0 +1,58 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>拖拽</title>
+<style>
+#div1{ position:absolute;width:200px; height:200px; background:#3F9;}
+</style>
+<script>
+window.onload=function(){
+	var oDiv=document.getElementById("div1");
+	var disX=0;
+	var disY=0;
+	oDiv.onmousedown=function(ev){
+		//兼容性写法，event对象
+		var oEvent=ev||event;
+		//获取鼠标的坐标和div的坐标，求出鼠标在div的相对位置
+		disX=oEvent.clientX-oDiv.offsetLeft;
+		disY=oEvent.clientY-oDiv.offsetTop;
+		//如果鼠标移动效果在div上，鼠标移动快，会移出div,终止事件
+		document.onmousemove=function(ev){
+		var oEvent=ev||event;
+		//鼠标坐标减去鼠标在div的相对位置，求出鼠标移动时，div的最新坐标
+		var l=oEvent.clientX-disX;
+		var h=oEvent.clientY-disY;
+		//设置变量，避免div被拖拽出可视区域
+		/*
+		if(l<0){l=0;}
+		if(l>document.documentElement.clientWidth-oDiv.offsetWidth){l=document.documentElement.clientWidth-oDiv.offsetWidth;}
+		if(h<0){h=0;}
+		if(h>document.documentElement.clientHeight-oDiv.offsetHeight){h=document.documentElement.clientHeight-oDiv.offsetHeight;}
+		*/
+		//吸附拖拽
+		if(l<50){l=0;}
+		if(l>document.documentElement.clientWidth-(oDiv.offsetWidth+50)){l=document.documentElement.clientWidth-oDiv.offsetWidth;}
+		if(h<50){h=0;}
+		if(h>document.documentElement.clientHeight-(oDiv.offsetHeight+50)){h=document.documentElement.clientHeight-oDiv.offsetHeight;}
+		
+		oDiv.style.left=l+"px";
+		oDiv.style.top=h+"px";
+		};
+		//避免把div移出可视区域，鼠标弹开事件无法执行BUG
+		document.onmouseup=function(){
+			document.onmousemove=null;
+			document.onmouseup=null;
+		};
+		//避免FF下面的默认行为
+		return false;
+	};
+	
+}
+</script>
+</head>
+
+<body>
+<div id="div1"></div>
+</body>
+</html>

@@ -1,0 +1,106 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>猜谜语1</title>
+<script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>
+<style>
+ol,
+p { width: 400px; margin: 0 auto; }
+li { cursor: pointer; height:30px; line-height:30px; }
+</style>
+</head>
+
+<body>
+<p></p>
+<ol type="A">
+</ol>
+</body>
+<script type="text/javascript">
+var arrAll=['有植物熊猫之称的是',
+'中国抗日战争是发生在什么时候',
+'三国时期，吴国在夷陵之战中大胜蜀国，主要是吴国大将陆逊使用了什么计谋',
+'猪血丸子是哪个地方的传统美食',
+'山重水复疑无路，柳暗花明又一村是谁写的',
+'闭月，羞花，沉鱼，落雁分别指哪个美女',
+'南京大屠杀中，日军残忍杀害了多少国人同胞',
+'抗日期间，日本在中国犯下哪些的滔天罪行',
+'釜底抽薪的“釜”指的是',
+'一下那种草药的真正有的',
+'湖南衡阳的雅称是什么',
+'哪个国家的垃圾产量居世界第一',
+'万里长城始建于哪个时期',
+'中国共有多少个省，自治区，直辖市，特别行政区',
+'食在广州，生在杭州，穿在苏州，死在？'];
+var ansAll=['银杉,银杏,铁莲花,铁树,银桦',
+'1936-1944,1937-1945,1938-1946,1938-1947',
+'火烧藤甲兵,水淹七军,火烧连营,火烧博望坡',
+'北京,上海,广东,湖南,福建',
+'杜甫,李白,白居易,陆游,杜牧',
+'貂蝉，西施，王昭君，杨玉环,貂蝉，西施，杨玉环，王昭君,貂蝉，杨玉环，西施，王昭君,西施，王昭君，貂蝉，杨玉环,西施，杨玉环，王昭君，貂蝉,王昭君，西施，貂蝉，杨玉环',
+'20W,22W,25W,30W',
+'南京大屠杀,731生化部队,三光政策,慰安妇,重庆大轰炸,以上全部都是，还有数不完的许多',
+'锅,碗,瓢,盆,盘',
+'将不领命,王不留行,后不认情,臣不辅子,你不是人',
+'雀城,燕城,雁城,鸟城,猪城,水城',
+'美国,中国,俄罗斯,日本,德国',
+'明朝,宋朝,唐朝,秦朝,春秋战国,商朝',
+'23，5，4，3,23，6，4，2,24，5，4，3,23，5，4，2',
+'漳州,株洲,梧州,柳州,荆州'];
+var trueans=[1,1,2,3,3,2,3,5,0,1,2,0,4,3,3];
+var arrUse=[];
+var ansUse=[];
+var trueAnsUse=[];
+var suiji;
+var j=arrAll.length;
+var num=0;
+var trueAnsNum=0;
+//打乱数组
+for(var i=0;i<j;i++){
+	suiji = Math.floor(Math.random()*arrAll.length);
+	arrUse.push(arrAll.splice(suiji,1));
+	ansUse.push(ansAll.splice(suiji,1));
+	trueAnsUse.push(trueans.splice(suiji,1));
+}
+function miyu(){
+	if(num==trueAnsUse.length){
+		alert("你已经全部答正确了！");
+		$("ol").off("click","li");
+		return;
+	}
+	else{
+		var trueindex=trueAnsUse[num];
+		var answer=ansUse[num].join();
+		trueAnsNum=trueAnsUse[num];
+		var answerList=answer.split(",");
+		$("p").text(arrUse[num]);
+		//在把项从字符串转数组
+		$("ol li").remove();
+		for(var i=0;i<answerList.length;i++){
+			$("ol").append("<li>"+answerList[i]+"</li>");
+		}
+		num++;
+	}
+}
+miyu();
+$("ol").on("click","li",function(){
+	//alert("513");
+	if($(this).index()==trueAnsNum){
+		alert("你好厉害");
+		miyu();
+	}
+	else{
+		alert("错了");
+	}
+});
+/*$("ol li").click(function(){
+	if($(this).index()==trueAnsNum){
+		alert("你好厉害@");
+		miyu();
+	}
+	else{
+		alert("错了");
+	}
+});*/
+</script>
+</html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<title>折叠筛选</title>
+<style>
+*{text-align:center;}
+a{color:#333; text-decoration:none; display:block;}
+#listBox {width:900px;}
+ul,li{padding:0; margin:0;}
+#listBox li{float:left; width:300px; height:50px; line-height:50px; list-style-type:none;}
+</style>
+<script>
+$(document).ready(function() {
+	$("#listBox li>a:not(:last)").each(function(index, element) {
+        var li=$(this).html();
+		$(this).html((index+1)+'.'+li);
+    });
+	var $oli=$("#listBox li:gt(10):not(:last)");
+	$oli.hide();
+	var $aBtn=$("#chiose");
+	$aBtn.click(function(){
+		if($oli.is(':hidden'))
+		{
+			$oli.show();
+			$("#listBox li>a:not(:last)").filter(':contains("纯均"),:contains("赤霄"),:contains("渊虹")').css("color","blue");
+			$aBtn.text('收起全部');
+		}
+		else{
+			$oli.hide();
+			$("#listBox li>a:not(:last)").css("color","#333");
+			$aBtn.text('显示全部');
+		}
+		return false;
+	});
+});
+
+</script>
+</head>
+
+<body>
+<div id="listBox">
+<ul>
+<li><a href="#">天问</a></li>
+<li><a href="#">渊虹</a></li>
+<li><a href="#">太阿</a></li>
+<li><a href="#">纯均</a></li>
+<li><a href="#">望舒</a></li>
+<li><a href="#">雪霁</a></li>
+<li><a href="#">水寒</a></li>
+<li><a href="#">龙泉</a></li>
+<li><a href="#">秋丽</a></li>
+<li><a href="#">凌虚</a></li>
+<li><a href="#">巨阙</a></li>
+<li><a href="#">赤霄</a></li>
+<li><a href="#">承影</a></li>
+<li><a href="#">湛卢</a></li>
+<li><a href="#">鱼肠</a></li>
+<li><a href="#">含光</a></li>
+<li><a href="#">干将</a></li>
+<li><a href="#">莫邪</a></li>
+<li><a href="#">青云</a></li>
+<li><a href="#">雷赤</a></li>
+<li><a href="#">长空</a></li>
+<li><a href="#">水寒</a></li>
+<li><a href="#">炎龙</a></li>
+<li><a href="#">羲和</a></li>
+<li><a href="#">凤秉</a></li>
+<li><a href="#">瓦雷</a></li>
+<li><a href="#">空梦</a></li>
+<li><a href="#">承影</a></li>
+<li><a href="#">落孤</a></li>
+<li><a href="#">庭翅</a></li>
+<li><a href="#">其它名剑</a></li>
+</ul>
+</div>
+<div style="clear:both"></div>
+<a href="#" id="chiose" style="width:900px;">显示全部</a>
+</body>
+</html>

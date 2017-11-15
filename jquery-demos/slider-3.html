@@ -1,0 +1,109 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>滑动展示</title>
+<link rel="stylesheet" type="text/css" href="css/css_r.css"/>
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script>
+$(document).ready(function(){
+var page=1;
+var i=4;
+var $v_show=$("div.v_content_list");
+var $v_content=$("div.v_content");
+var v_width=$v_content.width();
+var len=$v_show.find("li").length;
+var timer=null;
+var page_count=Math.ceil(len/i);
+
+$("span.next").click(function(){
+	clearInterval(timer);
+	next();
+	timer=setInterval(next,4000);
+});
+$("span.prev").click(function(){
+	clearInterval(timer);
+	if(!$v_show.is(":animated")){
+	if(page==1){
+		$v_show.animate({left:'-='+v_width*(page_count-1)},'normal');
+		page=page_count;
+	}
+	else{
+		$v_show.animate({left:'+='+v_width},'normal');
+		page--;
+	}
+	}
+	$(".hightlight_tip span").eq(page-1).addClass("curren").siblings().removeClass("curren");
+	timer=setInterval(next,4000);
+});
+function next(){
+	if(!$v_show.is(":animated")){
+	if(page==page_count){
+		$v_show.animate({left:0},'normal');
+		page=1;
+	}
+	else{
+		$v_show.animate({left:'-='+v_width},'normal');
+		page++;
+	}
+	}
+	$(".hightlight_tip span").eq(page-1).addClass("curren").siblings().removeClass("curren");
+}
+timer=setInterval(next,4000);
+});
+</script>
+<style>
+h2{font-weight:bold; font-size:24px;}
+.v_caption{line-height:30px;}
+.v_caption h2,.v_caption .hightlight_tip,.change_btn{float:left;}
+.v_show{width:840px;}
+.v_show span{cursor:pointer;}
+.hightlight_tip span{display:inline-block; width:10px; height:10px; background:#666; margin-right:10px;}
+.change_btn span{display:inline-block; width:20px; height:20px;margin:4px 0;transition: all 0.2s;}
+.change_btn span.prev{background:url(images/jiantoulist.png) 20px 0px;}
+.change_btn span.next{background:url(images/jiantoulist.png) 0px 0px;}
+.change_btn span.next:hover{background:url(images/jiantoulist.png) 0px 20px;}
+.change_btn span.prev:hover{background:url(images/jiantoulist.png) 20px 20px;}
+.hightlight_tip{margin:10px 30px;}
+.hightlight_tip span.curren{background:#0F9;}
+.v_content{position:relative; width:840px; overflow:hidden; height:250px;}
+.v_content_list{width:2520px; position:absolute;}
+.v_content_list li{width:200px; text-align:center; float:left; margin-right:10px;}
+.v_content_list li img{width:200px;}
+</style>
+</head>
+
+<body>
+<div class="v_show">
+  <div class="v_caption">
+    <h2 class="cartoon">卡通动漫</h2>
+    <div class="hightlight_tip"> <span class="curren"></span><span></span><span></span> </div>
+  <div class="change_btn">
+      <span class="prev"></span>
+      <span class="next"></span>
+     
+  </div>
+   <em class="floadr"><a href="#">更多>></a></em>
+</div>
+<div class="clear"></div>
+<div class="v_content">
+<div class="v_content_list">
+<ul>
+<li><a href="#"><img src="images/img1.jpg" /></a><h4><a href="#">秦时明月</a></h4><span><em>28,276</em></span></li>
+<li><a href="#"><img src="images/img2.jpg" /></a><h4><a href="#">秦时明月</a></h4><span><em>28,276</em></span></li>
+<li><a href="#"><img src="images/img5.jpg" /></a><h4><a href="#">秦时明月</a></h4><span><em>28,276</em></span></li>
+<li><a href="#"><img src="images/img7.jpg" /></a><h4><a href="#">秦时明月</a></h4><span><em>28,276</em></span></li>
+<li><a href="#"><img src="images/img8.jpg" /></a><h4><a href="#">秦时明月</a></h4><span><em>28,276</em></span></li>
+<li><a href="#"><img src="images/img9.jpg" /></a><h4><a href="#">秦时明月</a></h4><span><em>28,276</em></span></li>
+<li><a href="#"><img src="images/img10.jpg" /></a><h4><a href="#">秦时明月</a></h4><span><em>28,276</em></span></li>
+<li><a href="#"><img src="images/img11.jpg" /></a><h4><a href="#">秦时明月</a></h4><span><em>28,276</em></span></li>
+<li><a href="#"><img src="images/img13.jpg" /></a><h4><a href="#">秦时明月</a></h4><span><em>28,276</em></span></li>
+<li><a href="#"><img src="images/img15.jpg" /></a><h4><a href="#">秦时明月</a></h4><span><em>28,276</em></span></li>
+<li><a href="#"><img src="images/img16.jpg" /></a><h4><a href="#">秦时明月</a></h4><span><em>28,276</em></span></li>
+<li><a href="#"><img src="images/img18.jpg" /></a><h4><a href="#">秦时明月/a></a></h4><a href="#"><span><em>28,276</em></span></a></li>
+</ul>
+</div>
+</div>
+</div>
+</body>
+</html>

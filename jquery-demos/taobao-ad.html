@@ -1,0 +1,150 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>仿淘宝广告</title>
+<link rel="stylesheet" type="text/css" href="css/css_r.css"/>
+<script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>
+<script>
+$(document).ready(function() {
+   var zIndex=1;//设置累加z-index变量
+   var now=0;//设置变量，记录当前的索引值
+   var height1=$(".lIcon").height();//获取展示区域高度
+   var countPage=1;//当前页码
+   //总页码
+   var pageNum=Math.ceil($(".lIcon ul li").length/5);
+   //定时器
+   var timer=null;
+   $(".lIcon li").mouseenter(function(){
+	   //先清除定时器，避免干扰，鼠标移开后就再开启定时器
+	   clearInterval(timer);
+	   //记录当前索引值，并且通过索引判断鼠标移上去的Li,是否就是当前Li,如果是就不进行操作。
+	   var index=$(this).index();
+	   if(now==index){return}
+	   else{
+		   //不是就设置当前索引值给变量，并且给当前Li添加类名以及根据索引显示DIV
+		   now=index;
+		   zIndex++;
+	   	   $(".relative .absolute").eq(now).css("z-index",zIndex);
+		   $(this).addClass("curren").siblings().removeClass("curren");
+	   }
+	}).mouseleave(function(){
+		timer=setInterval(nextIcon,3000);
+	});
+	//$(".lIcon li")
+	$(".prev").click(function(){
+		//向上箭头，如果当前页码不是最后一页，则让UL向上移动一个高度位，页面+1；否则就跳回第一页，页码设置为1
+		if(countPage!=pageNum){
+			$(".lIcon ul").animate({top:'-='+height1},'slow');
+			countPage++;
+		}
+		else{
+			$(".lIcon ul").animate({top:0},'slow');
+			countPage=1;
+		}
+	});
+	$(".next").click(function(){
+		//向下箭头，如果当前页码不是第一页，则让UL向下移动一个高度位，页码-1；否则就跳回最后一页，页码设置为总页码
+		if(countPage!=1){
+			$(".lIcon ul").animate({top:'+='+height1},'slow');
+			countPage--;
+		}
+		else{
+			$(".lIcon ul").animate({top:-(pageNum-1)*height1},'slow');
+			countPage=pageNum;
+		}
+	});
+	function nextIcon(){
+		//判断是否是最后一个Li
+		if(now==($(".lIcon li").length)-1){
+			now=0;
+		}
+		else{
+			now++;
+		}
+		zIndex++;
+		$(".lIcon li").eq(now).addClass("curren").siblings().removeClass("curren");
+		$(".relative .absolute").eq(now).css("z-index",zIndex);
+		//判断是否是底部Li,如果是底部LI，下一个的同时就翻下一页！如果是最后一页，就调回第一页
+		if(now%5==0){
+			
+			if(countPage!=pageNum){
+				$(".lIcon ul").animate({top:'-='+height1},'slow');
+				countPage++;
+			}
+			else{
+				$(".lIcon ul").animate({top:0},'slow');
+				countPage=1;
+			}
+		}
+	}
+	timer=setInterval(nextIcon,3000);
+});
+</script>
+<style>
+img { vertical-align: bottom; }
+.box { margin: 30px; }
+.relative { width: 300px; height: 300px; margin-right: 6px; }
+.relative .absolute { width: 100%; height: 100%; }
+.relative .absolute img { height: 300px; }
+.lIcon { position: relative; height: 270px; overflow: hidden; width: 54px; }
+.lIcon li { padding: 2px; opacity: 0.3; }
+.lIcon li.curren { padding: 0; border: 2px solid #0F9; opacity: 1; }
+.lIcon ul { position: absolute; }
+span { cursor: pointer; }
+</style>
+</head>
+
+<body>
+<div class="box">
+  <div class="floadl relative">
+    <div class="absolute" style="z-index:1;"> <a href="#"><img src="images/img1.jpg" /></a> </div>
+    <div class="absolute"> <a href="#"><img src="images/img2.jpg" /></a> </div>
+    <div class="absolute"> <a href="#"><img src="images/img3.jpg" /></a> </div>
+    <div class="absolute"> <a href="#"><img src="images/img4.jpg" /></a> </div>
+    <div class="absolute"> <a href="#"><img src="images/img5.jpg" /></a> </div>
+    <div class="absolute"> <a href="#"><img src="images/img6.jpg" /></a> </div>
+    <div class="absolute"> <a href="#"><img src="images/img7.jpg" /></a> </div>
+    <div class="absolute"> <a href="#"><img src="images/img8.jpg" /></a> </div>
+    <div class="absolute"> <a href="#"><img src="images/img9.jpg" /></a> </div>
+    <div class="absolute"> <a href="#"><img src="images/img10.jpg" /></a> </div>
+    <div class="absolute"> <a href="#"><img src="images/img11.jpg" /></a> </div>
+    <div class="absolute"> <a href="#"><img src="images/img12.jpg" /></a> </div>
+    <div class="absolute"> <a href="#"><img src="images/img13.jpg" /></a> </div>
+    <div class="absolute"> <a href="#"><img src="images/img14.jpg" /></a> </div>
+    <div class="absolute"> <a href="#"><img src="images/img15.jpg" /></a> </div>
+    <div class="absolute"> <a href="#"><img src="images/img16.jpg" /></a> </div>
+    <div class="absolute"> <a href="#"><img src="images/img17.jpg" /></a> </div>
+    <div class="absolute"> <a href="#"><img src="images/img18.jpg" /></a> </div>
+    <div class="absolute"> <a href="#"><img src="images/img19.jpg" /></a> </div>
+    <div class="absolute"> <a href="#"><img src="images/img20.jpg" /></a> </div>
+  </div>
+  <div class="iconBox floadl"> <span class="prev"><img src="images/jiantou5.png" /></span>
+    <div class="lIcon">
+      <ul>
+        <li class="curren"><a href="#"><img src="images/img1.jpg" height="50" width="50"/></a></li>
+        <li><a href="#"><img src="images/img2.jpg" height="50" width="50"/></a></li>
+        <li><a href="#"><img src="images/img3.jpg" height="50" width="50"/></a></li>
+        <li><a href="#"><img src="images/img4.jpg" height="50" width="50"/></a></li>
+        <li><a href="#"><img src="images/img5.jpg" height="50" width="50"/></a></li>
+        <li><a href="#"><img src="images/img6.jpg" height="50" width="50"/></a></li>
+        <li><a href="#"><img src="images/img7.jpg" height="50" width="50"/></a></li>
+        <li><a href="#"><img src="images/img8.jpg" height="50" width="50"/></a></li>
+        <li><a href="#"><img src="images/img9.jpg" height="50" width="50"/></a></li>
+        <li><a href="#"><img src="images/img10.jpg" height="50" width="50"/></a></li>
+        <li><a href="#"><img src="images/img11.jpg" height="50" width="50"/></a></li>
+        <li><a href="#"><img src="images/img12.jpg" height="50" width="50"/></a></li>
+        <li><a href="#"><img src="images/img13.jpg" height="50" width="50"/></a></li>
+        <li><a href="#"><img src="images/img14.jpg" height="50" width="50"/></a></li>
+        <li><a href="#"><img src="images/img15.jpg" height="50" width="50"/></a></li>
+        <li><a href="#"><img src="images/img16.jpg" height="50" width="50"/></a></li>
+        <li><a href="#"><img src="images/img17.jpg" height="50" width="50"/></a></li>
+        <li><a href="#"><img src="images/img18.jpg" height="50" width="50"/></a></li>
+        <li><a href="#"><img src="images/img19.jpg" height="50" width="50"/></a></li>
+        <li><a href="#"><img src="images/img20.jpg" height="50" width="50"/></a></li>
+      </ul>
+    </div>
+    <span class="next"><img src="images/jiantou6.png" /></span> </div>
+</div>
+</body>
+</html>

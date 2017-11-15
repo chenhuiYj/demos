@@ -1,0 +1,72 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>放大镜</title>
+<link rel="stylesheet" type="text/css" href="css/css_r.css"/>
+<script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>
+<style>
+.middleImg{position:relative; width:300px; height:300px; float:left;}
+.middleImg .mask{position:absolute; width:100px; height:100px; background:#06F; opacity:0.3; display:none;}
+.larImg{width:400px; height:400px; overflow:hidden; position:relative; float:left; margin-left:40px;}
+.larImg img{position:absolute;}
+</style>
+<script type="text/javascript">
+$(document).ready(function(e) {
+   /* $(".middleImg").mouseenter(function(){
+		
+	});*/
+	var middleImgOffset=null;
+	$(".middleImg").mousemove(function(e){
+		$(".larImg").show();
+		$(this).children(".mask").css("display","block");
+		middleImgOffset=$(".middleImg").offset();
+		
+		var x=e.pageX-middleImgOffset.left-$(".middleImg .mask").width()/2;
+		var y=e.pageY-middleImgOffset.top-$(".middleImg .mask").width()/2;
+		//document.title=x;
+		if(x<=0){
+			x=0;
+		}
+		else if(x>=$(".middleImg").width()-$(".middleImg .mask").width()){
+			x=$(".middleImg").width()-$(".middleImg .mask").width();
+		}
+		if(y<=0){
+			y=0;
+		}
+		else if(y>=$(".middleImg").height()-$(".middleImg .mask").height()){
+			y=$(".middleImg").height()-$(".middleImg .mask").height();
+		}
+		
+		var targeX=x/($(".middleImg").width()-$(".middleImg .mask").width());
+		var targey=y/($(".middleImg").height()-$(".middleImg .mask").height());
+		
+		$(".larImg img").css({
+			left:-targeX*(800-$(".larImg").width()),
+			top:-targey*(800-$(".larImg").height())
+		});
+		//alert($(".larImg").width());
+		$(".middleImg .mask").css({
+			left:x,
+			top:y
+		});
+		
+	});
+	$(".middleImg").mouseleave(function(){
+		$(".larImg").hide();
+		$(".middleImg .mask").hide();
+	});
+});
+</script>
+</head>
+
+<body>
+<div class="middleImg">
+<div class="mask"></div>
+<img src="images/fangdajing.jpg" width="300" />
+</div>
+<div class="larImg" style="display:none;">
+<img src="images/fangdajing.jpg" />
+</div>
+</body>
+</html>

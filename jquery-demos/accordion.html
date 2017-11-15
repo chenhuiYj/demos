@@ -1,0 +1,45 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>手风琴</title>
+<link rel="stylesheet" type="text/css" href="css/css_r.css"/>
+<script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>
+<style>
+.fengqinList li{height:300px;}
+.fengqinList li span{display:block; background:#ff6; height:100%; float:left; line-height:300px; border:1px solid #ccc;}
+.fengqinList li span:hover{background:#FF9;}
+.fengqinList li .testDiv{width:0px; background:#CCC; height:300px; float:left; overflow:hidden;}
+</style>
+<script type="text/javascript">
+$(document).ready(function(e) {
+    $(".fengqinList li").click(function(){
+			$(this).children(".testDiv").animate({width:480},'slow').end().siblings().children(".testDiv").animate({width:0},"slow");
+	});
+});
+</script>
+</head>
+
+<body>
+<div class="fengqinList">
+<ul class="flli">
+<li>
+<span>第一屏</span>
+<div class="testDiv"><img src="images/shoufengqin1.jpg" /></div>
+</li>
+<li>
+<span>第二屏</span>
+<div class="testDiv"><img src="images/shoufengqin2.jpg" /></div>
+</li>
+<li>
+<span>第三屏</span>
+<div class="testDiv"><img src="images/shoufengqin3.jpg" /></div>
+</li>
+<li>
+<span>第四屏</span>
+<div class="testDiv"><img src="images/shoufengqin4.jpg" /></div>
+</li>
+</ul>
+</div>
+</body>
+</html>
