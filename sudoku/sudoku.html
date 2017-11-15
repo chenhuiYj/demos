@@ -84,6 +84,11 @@
             background: #58B7FF;
             border: 1px solid #fff;
         }
+        .num-tips{
+            color: #333;
+            line-height: 32px;
+            font-size: 16px;
+        }
         .num-row {
             font-size: 0;
         }
@@ -120,6 +125,11 @@
 </head>
 <body>
 <div class="num-box" v-show="numShow" @mouseleave="hoverCol=''" :class="{'shake':isShake}" id="num">
+    <div class="num-tips">
+        <p>所谓的数独：规则</p>
+        <p>1.每一行数字不重复</p>
+        <p>2.每一列数字不重复</p>
+    </div>
     <div v-for="row,index in allNum" class="num-row chearfix">
         <div v-for="num1,indexSub in row"
              :class="{'no':num1==='','cur':curRow===index&&indexSub===curCol,'cur-col':hoverCol===indexSub,'err':(errorOption1.x===index&&errorOption1.y===indexSub)||(errorOption2.x===index&&errorOption2.y===indexSub)||(errorOption3.x===index&&errorOption3.y===indexSub)}"
