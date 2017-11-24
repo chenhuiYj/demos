@@ -1,0 +1,97 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+<style>
+canvas{border:1px solid #ccc;}
+</style>
+</head>
+<audio src="1.wav" id="audio"></audio>
+<canvas id="cav1" width="400" height="400"></canvas>
+<body>
+</body>
+<script type="text/javascript">
+window.onload=function(){
+	var cavas=document.getElementById("cav1");
+	var context=cavas.getContext("2d");
+	var optionX=200;
+	var optionY=200;
+	var radius=100;
+	var audio=document.getElementById("audio");
+	audio.ontimeupdate=function  () {
+	 if(audio.currentTime>=0.1){
+	   audio.pause();
+	 }
+	} 
+	setInterval(function(){
+		context.clearRect(0,0,400,400);
+		audio.currentTime=0;
+		audio.play();
+		context.shadowColor="#333";
+		context.shadowOffsetX=0;
+		context.shadowOffsetY=0;
+		context.shadowBlur=10;
+		
+		//渐变
+		var gar1=context.createRadialGradient(optionX,optionY,1,optionX,optionY,100);
+		gar1.addColorStop(0,"#eee");
+		gar1.addColorStop(1,"#ccc");
+		context.fillStyle=gar1;
+		context.beginPath();
+		context.arc(optionX,optionY,radius,0,2*Math.PI);
+		//context.stroke();
+		context.fill();
+		
+		 //去掉阴影
+	   context.shadowColor="#888";
+	   context.shadowOffsetX=0;
+	   context.shadowOffsetY=0;
+	   context.shadowBlur=0;
+	   //画刻度
+	   drawMark ();
+	   var date=new Date();
+	   var ha=date.getHours()*30+(date.getMinutes()*6/12)-90;
+	   var ma=date.getMinutes()*6-90;
+	   var sa=date.getSeconds()*6-90;
+	   drawline(55,ha,4,"#000");
+	   drawline(65,ma,3,"#333");
+	   drawline(75,sa,2,"#f00");
+	  
+	   context.fillStyle="#aaa";
+	   context.beginPath();
+	   context.arc(optionX,optionY,5,0,2*Math.PI);
+	   context.fill();
+	},1000)
+	
+   //画针的函数
+   function drawline(radius,angle,width,color){
+	   context.lineWidth=width;
+	   context.strokeStyle=color;
+	   context.beginPath();
+	   context.moveTo(optionX,optionY);
+	   //context.lineTo(optionX+radius*Math.c os(angle*Math.PI/180),optionY+radius*Math.(angle*Math.PI/180));
+	   context.lineTo(optionX+radius*Math.cos(angle*Math.PI/180),optionY+radius*Math.sin(angle*Math.PI/180));
+	   context.stroke();
+   }
+   //画刻度的函数
+   function drawMark () {
+	 for (var i=0; i<60; i++) {
+	   var angle=i*6*Math.PI/180;
+	   var radius1=radius-4;
+	   var lw=2;
+	   if(i%5==0){
+		 radius1=radius-8;
+		 lw=4
+	   }
+	   context.strokeStyle="#888";
+	   context.lineWidth=lw;
+	   context.beginPath();
+	   context.moveTo(optionX+radius*Math.cos(angle),optionY+radius*Math.sin(angle));
+	   context.lineTo(optionX+(radius1)*Math.cos(angle),optionY+(radius1)*Math.sin(angle));
+	   context.stroke();
+	 }
+   }
+}
+</script>
+</html>

@@ -1,0 +1,105 @@
+<!doctype html>
+<html>
+    <head>
+        <!--声明当前页面编码集（中文编码<gbk,gb2312>,国际编码<utf-8>-->
+        <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+        <!--声明当前页面的三要素-->
+        <title>Document</title>
+        <meta name="Keywords" content="关键词，关键词">
+        <meta name="Description" content="">
+		<!--CSS样式-->
+		<style>
+			*{margin:0;padding:0;}
+			body{background:#000;}
+			#canvas{
+				margin:auto;/*外边距 ：垂直方向 水平方向*/
+			}
+		</style>
+    </head>
+
+	<body>
+		 <canvas id="canvas">
+			支持IE9浏览器 请你更新你的浏览器
+		 </canvas>
+		 <script>
+			var can = document.getElementById('canvas');//取到画布
+			var cxt = can.getContext('2d');//绘图环境 绘圆 矩形 线。
+			var timer=null;
+			/*
+			cxt.beginPath();//开始画圆
+			cxt.fillStyle = "red";
+			cxt.arc(250,250,200,0,360,false);//画圆
+			cxt.stroke();//画线
+			cxt.fill();//填充
+			cxt.closePath();//结束画圆
+			*/
+			//雪花数量
+			var W = window.innerWidth-17;//获取窗口宽度
+			var H = window.innerHeight;//获取窗口高度
+			window.onresize=function(){
+				W = window.innerWidth-17;
+				H = window.innerHeight;
+				can.width = W;
+				can.height = H;
+			}
+			can.width = W;
+			can.height = H;
+			var snumber = 100;
+			//雪花坐标     已经存起来
+			var arr = [];
+			for(var i=0;i<snumber;i++){
+				arr.push({
+					x:Math.random()*W,//画布范围内X坐标随机出现
+					y:Math.random()*H,//画布范围内Y坐标随机出现
+					r:Math.random()*5+2,//随机半径坐标
+				})
+			}
+			//如何画
+			function drawnow(){
+				cxt.shadowColor="white";
+				cxt.shadowOffsetX=0;
+				cxt.shadowOffsetY=3;
+				cxt.shadowBlur=15;
+				cxt.clearRect(0,0,W,H)
+				cxt.beginPath();
+				cxt.fillStyle = "white"
+				for(var i=0;i<snumber;i++){
+					var p = arr[i];
+					cxt.moveTo(p.x,p.y);
+					cxt.arc(p.x,p.y,p.r,0,360,false);
+				}
+				cxt.fill();
+				
+				snowdown()
+			}
+			
+			//雪花如何运动
+
+			function snowdown(){
+				for(var i =0;i<snumber;i++){
+					var p =arr[i];
+					p.y += Math.random();
+					if(p.y>H){
+						p.y = 0;
+						p.x = Math.random()*W;
+					}
+					if(i>80){
+						p.x+=Math.random()*0.5;
+						if(p.x>W){
+							p.x=0;
+						}
+					}
+					else if(i<60){
+						p.x+=Math.random()*0.5-0.5;
+						if(p.x<0){
+							p.x=W;
+						}
+					}
+				}
+			}
+			timer=setInterval(drawnow,5);
+			//美化雪花
+		 </script>
+	</body>
+</html>
+
