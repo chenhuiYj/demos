@@ -63,6 +63,12 @@ marquee:跑马灯
 
 nav-select:导航下拉
 
+### html5:html5的demos
+
+picker:canvas时钟
+
+sonw:canvas下雪
+
 ### es6-demos:es6的demos
 
 ## 其它说明
