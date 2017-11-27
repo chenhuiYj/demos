@@ -459,6 +459,8 @@
         computed: {
             //检测是否全选
             isSelectAll:function(){
+                //如果productList长度为0
+                if(this.productList.length===0){return false;}
                 //如果productList中每一条数据的select都为true，返回true，否则返回false;
                 return this.productList.every(function (val) { return val.select});
             },
