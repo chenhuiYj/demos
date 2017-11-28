@@ -1,38 +1,24 @@
 <!doctype html>
 <html>
     <head>
-        <!--声明当前页面编码集（中文编码<gbk,gb2312>,国际编码<utf-8>-->
         <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-        <!--声明当前页面的三要素-->
         <title>Document</title>
-        <meta name="Keywords" content="关键词，关键词">
-        <meta name="Description" content="">
-		<!--CSS样式-->
 		<style>
 			*{margin:0;padding:0;}
 			body{background:#000;}
 			#canvas{
-				margin:auto;/*外边距 ：垂直方向 水平方向*/
+				margin:auto;
 			}
 		</style>
     </head>
 
 	<body>
 		 <canvas id="canvas">
-			支持IE9浏览器 请你更新你的浏览器
+			请你更新你的浏览器
 		 </canvas>
 		 <script>
 			var can = document.getElementById('canvas');//取到画布
 			var cxt = can.getContext('2d');//绘图环境 绘圆 矩形 线。
-			var timer=null;
-			/*
-			cxt.beginPath();//开始画圆
-			cxt.fillStyle = "red";
-			cxt.arc(250,250,200,0,360,false);//画圆
-			cxt.stroke();//画线
-			cxt.fill();//填充
-			cxt.closePath();//结束画圆
-			*/
 			//雪花数量
 			var W = window.innerWidth-17;//获取窗口宽度
 			var H = window.innerHeight;//获取窗口高度
@@ -64,9 +50,8 @@
 				cxt.beginPath();
 				cxt.fillStyle = "white"
 				for(var i=0;i<snumber;i++){
-					var p = arr[i];
-					cxt.moveTo(p.x,p.y);
-					cxt.arc(p.x,p.y,p.r,0,360,false);
+					cxt.moveTo(arr[i].x,arr[i].y);
+					cxt.arc(arr[i].x,arr[i].y,arr[i].r,0,360,false);
 				}
 				cxt.fill();
 				
@@ -77,22 +62,21 @@
 
 			function snowdown(){
 				for(var i =0;i<snumber;i++){
-					var p =arr[i];
-					p.y += Math.random();
-					if(p.y>H){
-						p.y = 0;
-						p.x = Math.random()*W;
+                    arr[i].y += Math.random();
+					if(arr[i].y>H){
+                        arr[i].y = 0;
+                        arr[i].x = Math.random()*W;
 					}
 					if(i>80){
-						p.x+=Math.random()*0.5;
-						if(p.x>W){
-							p.x=0;
+                        arr[i].x+=Math.random()*0.5;
+						if(arr[i].x>W){
+                            arr[i].x=0;
 						}
 					}
 					else if(i<60){
-						p.x+=Math.random()*0.5-0.5;
-						if(p.x<0){
-							p.x=W;
+                        arr[i].x+=Math.random()*0.5-0.5;
+						if(arr[i].x<0){
+                            arr[i].x=W;
 						}
 					}
 				}
