@@ -69,6 +69,8 @@ picker:canvas时钟
 
 sonw:canvas下雪
 
+downloadImg:动态生成图片（邀请卡）
+
 ### es6-demos:es6的demos
 
 ## 其它说明
