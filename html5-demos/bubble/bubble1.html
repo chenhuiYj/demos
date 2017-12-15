@@ -25,17 +25,18 @@
     window.onload = function () {
         var canvas = document.createElement("canvas");
         var oInput = document.querySelector("#input");
-        oInput.addEventListener("blur",function () {
-            setDraw();
-        })
         canvas.id="canvas";
         canvas.width=1600;
         canvas.height=900;
         var ctx = canvas.getContext('2d');
         ctx.clearRect(0, 0, canvas.width, canvas.height);
-        ctx.font = 200 + "px Microsoft YaHei";
+        ctx.font = 100 + "px Microsoft YaHei";
         ctx.fillStyle = "white";
-        ctx.fillText("守 候", 200, 200);
+        ctx.fillText("守 候", 50, 200);
+        document.body.appendChild(canvas)
+        oInput.addEventListener("blur",function () {
+            setDraw();
+        })
         function draw() {
             var _text=oInput.value||"守 候";
             ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -162,18 +163,21 @@
             }
         }
         function setDraw() {
+            var canvas1 = document.createElement('canvas');
+            var ctx1 = canvas1.getContext('2d')
+            canvas1.width=canvas.width;
+            canvas1.height=canvas.height;
+            ctx1.clearRect(0, 0, canvas.width, canvas.height);
             var _text=oInput.value||"守 候";
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            ctx.font = 200 + "px Microsoft YaHei";
-            ctx.fillStyle = "white";
-            ctx.fillText(_text, 200, 200);
+            ctx1.font = 100 + "px Microsoft YaHei";
+            ctx1.fillStyle = "white";
+            ctx1.fillText(_text, 50, 200);
             var image = new Image();
-            image.src = canvas.toDataURL("image/jpeg");
+            image.src = canvas1.toDataURL("image/jpeg");
             image.onload = function () {
+                ctx1.drawImage(image, 0, 0, this.width, this.height)
+                var imageData = ctx1.getImageData(0, 0, this.width, this.height)
                 ctx.clearRect(0, 0, canvas.width, canvas.height);
-                ctx.drawImage(image, 0, 0, this.width, this.height)
-                document.body.appendChild(canvas)
-                var imageData = ctx.getImageData(0, 0, this.width, this.height)
                 var diff = 4
                 var option = {};
                 var arr = []
@@ -200,7 +204,6 @@
                                 color: '#fff'
                             };
                             arr.push(option);
-                            drawDo(option, ctx);
                         }
                     }
                 }
