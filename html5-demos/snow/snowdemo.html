@@ -46,6 +46,7 @@
 				cxt.shadowOffsetX=0;
 				cxt.shadowOffsetY=3;
 				cxt.shadowBlur=15;
+				//清除画布
 				cxt.clearRect(0,0,W,H)
 				cxt.beginPath();
 				cxt.fillStyle = "white"
@@ -54,7 +55,6 @@
 					cxt.arc(arr[i].x,arr[i].y,arr[i].r,0,360,false);
 				}
 				cxt.fill();
-				
 				snowdown()
 			}
 			
