@@ -61,9 +61,9 @@ function getImage(canvas, ctx) {
                 for (var k = 0; k < diff * diff; k++) {
                     var row = k % diff
                     var col = ~~(k / diff)
-                    let r = imageData.data[((j + col) * this.width + i + row) * 4 + 0]
-                    let g = imageData.data[((j + col) * this.width + i + row) * 4 + 1]
-                    let b = imageData.data[((j + col) * this.width + i + row) * 4 + 2]
+                    var r = imageData.data[((j + col) * this.width + i + row) * 4 + 0]
+                    var g = imageData.data[((j + col) * this.width + i + row) * 4 + 1]
+                    var b = imageData.data[((j + col) * this.width + i + row) * 4 + 2]
                     if (r < 10 && g < 10 && b < 10) colorNum++
                     //如果满足此条件说明当前为背景色黑色（canvas转出来的图片背景并不是纯黑的
                 }

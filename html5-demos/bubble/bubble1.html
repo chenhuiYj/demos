@@ -15,8 +15,8 @@
 <script type="text/javascript">
     function drawDo(_option, ctx) {
         var x, y;
-        x = _option.x * 2 + 50,
-            y = _option.y * 2 + 50
+        x = _option.x*1.5;
+            y = _option.y*1.5;
         ctx.beginPath();
         ctx.arc(x, y, _option.radius, 0, 2 * Math.PI, false)
         ctx.fillStyle = _option.color
@@ -30,13 +30,141 @@
         canvas.height=900;
         var ctx = canvas.getContext('2d');
         ctx.clearRect(0, 0, canvas.width, canvas.height);
-        ctx.font = 100 + "px Microsoft YaHei";
-        ctx.fillStyle = "white";
-        ctx.fillText("守 候", 50, 200);
+        //ctx.font = 200 + "px Microsoft YaHei";
+        //ctx.fillStyle = "white";
+        //ctx.fillText("守 候", 50, 200);
         document.body.appendChild(canvas)
+        var arrText=['欢迎光临','找原料网','后台管理系统','请开始你的表演'],nowIndex=0;
+        setDraw();
         oInput.addEventListener("blur",function () {
-            setDraw();
+
         })
+        function setDraw() {
+            var canvas1 = document.createElement('canvas');
+            var ctx1 = canvas1.getContext('2d')
+            canvas1.width=canvas.width;
+            canvas1.height=canvas.height;
+            ctx1.clearRect(0, 0, canvas.width, canvas.height);
+            var _text=arrText[nowIndex];
+            ctx1.font = 100 + "px Microsoft YaHei";
+            ctx1.fillStyle = "white";
+            var _x=0,_xo=0;
+            switch (nowIndex){
+                case 0:_x=350;_xo=530;break;
+                case 1:_x=350;_xo=530;break;
+                case 2:_x=220;_xo=500;break;
+                case 3:_x=200;_xo=520;break;
+            }
+            ctx1.fillText(_text, _x, 330);
+            var image = new Image();
+            image.src = canvas1.toDataURL("image/jpeg");
+            image.onload = function () {
+                ctx1.drawImage(image, 0, 0, this.width, this.height)
+                var imageData = ctx1.getImageData(0, 0, this.width, this.height)
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                var diff = 4
+                var option = {};
+                var arr = []
+                for (var j = 0; j < this.height; j += diff) {
+                    for (var i = 0; i < this.width; i += diff) {
+                        var colorNum = 0
+                        for (var k = 0; k < diff * diff; k++) {
+                            var row = k % diff
+                            var col = ~~(k / diff)
+                            var r = imageData.data[((j + col) * this.width + i + row) * 4 + 0]
+                            var g = imageData.data[((j + col) * this.width + i + row) * 4 + 1]
+                            var b = imageData.data[((j + col) * this.width + i + row) * 4 + 2]
+                            if (r < 10 && g < 10 && b < 10) colorNum++
+                            //如果满足此条件说明当前为背景色黑色（canvas转出来的图片背景并不是纯黑的
+                        }
+                        //黑色背景占比小于一定程度说明此处应该画粒子，占比度可自行调整
+
+                        //画粒子
+                        if (colorNum < diff * diff / 3 * 2) {
+                            option = {
+                                x: i,
+                                y: j,
+                                radius: 2,
+                                color: '#fff'
+                            };
+                            arr.push(option);
+                        }
+                    }
+                }
+                var _option=[];
+                for (var i = 0; i < arr.length; i++) {
+                    _option.push({
+                        x: _xo,
+                        y: 310,
+                        radius: 2,
+                        color: '#fff'
+                    })
+                }
+                var thisIs=true;
+                var rx,ry;
+                var timer=setInterval(function () {
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                    for (var i = 0; i < arr.length; i++) {
+                        rx=Math.ceil(Math.random()*10);
+                        ry=Math.ceil(Math.random()*10);
+                        //如果arrOption的x比_arrOptionNow的大，-=1
+                        if(_option[i].x>arr[i].x){
+                            if(_option[i].x-arr[i].x<rx){
+                                _option[i].x=arr[i].x;
+                            }
+                            else{
+                                _option[i].x=_option[i].x-rx;
+                            }
+
+                        }
+                        //如果arrOption的x比arr的小，+=1
+                        else if(_option[i].x<arr[i].x){
+                            if(arr[i].x-_option[i].x<rx){
+                                _option[i].x=arr[i].x;
+                            }
+                            else{
+                                _option[i].x=_option[i].x+rx;
+                            }
+                        }
+                        //如果arrOption的y比arr的小，-=1
+                        if(_option[i].y>arr[i].y){
+                            if(_option[i].y-arr[i].y<ry){
+                                _option[i].y=arr[i].y;
+                            }
+                            else{
+                                _option[i].y=_option[i].y-ry;
+                            }
+
+                        }
+                        //如果arrOption的y比arr的小，+=1
+                        else if(_option[i].y<arr[i].y){
+                            if(arr[i].y-_option[i].y<ry){
+                                _option[i].y=arr[i].y;
+                            }
+                            else{
+                                _option[i].y=_option[i].y+ry;
+                            }
+                        }
+                        drawDo(_option[i], ctx);
+                    }
+                    for(var i = 0; i < arr.length; i++){
+                        if(_option[i].x!==arr[i].x||_option[i].y!==arr[i].y){
+                            thisIs=true;
+                            break;
+                        }
+                        thisIs=false;
+                    }
+                    if(!thisIs){
+                        clearInterval(timer);
+                        if(nowIndex!==arrText.length-1){
+                            nowIndex++;
+                            setTimeout(setDraw,1000);
+                        }
+                    }
+                }, 20)
+                // document.getElementById('body').appendChild(canvas) //离屏canvas展现到界面中看到渲染效果
+            }
+        }
         function draw() {
             var _text=oInput.value||"守 候";
             ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -157,122 +285,6 @@
                     if(!thisIs){
                         clearInterval(timer);
                         setDraw(arr)
-                    }
-                }, 50)
-                // document.getElementById('body').appendChild(canvas) //离屏canvas展现到界面中看到渲染效果
-            }
-        }
-        function setDraw() {
-            var canvas1 = document.createElement('canvas');
-            var ctx1 = canvas1.getContext('2d')
-            canvas1.width=canvas.width;
-            canvas1.height=canvas.height;
-            ctx1.clearRect(0, 0, canvas.width, canvas.height);
-            var _text=oInput.value||"守 候";
-            ctx1.font = 100 + "px Microsoft YaHei";
-            ctx1.fillStyle = "white";
-            ctx1.fillText(_text, 50, 200);
-            var image = new Image();
-            image.src = canvas1.toDataURL("image/jpeg");
-            image.onload = function () {
-                ctx1.drawImage(image, 0, 0, this.width, this.height)
-                var imageData = ctx1.getImageData(0, 0, this.width, this.height)
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
-                var diff = 4
-                var option = {};
-                var arr = []
-                for (var j = 0; j < this.height; j += diff) {
-                    for (var i = 0; i < this.width; i += diff) {
-                        var colorNum = 0
-                        for (var k = 0; k < diff * diff; k++) {
-                            var row = k % diff
-                            var col = ~~(k / diff)
-                            var r = imageData.data[((j + col) * this.width + i + row) * 4 + 0]
-                            var g = imageData.data[((j + col) * this.width + i + row) * 4 + 1]
-                            var b = imageData.data[((j + col) * this.width + i + row) * 4 + 2]
-                            if (r < 10 && g < 10 && b < 10) colorNum++
-                            //如果满足此条件说明当前为背景色黑色（canvas转出来的图片背景并不是纯黑的
-                        }
-                        //黑色背景占比小于一定程度说明此处应该画粒子，占比度可自行调整
-
-                        //画粒子
-                        if (colorNum < diff * diff / 3 * 2) {
-                            option = {
-                                x: i,
-                                y: j,
-                                radius: 3,
-                                color: '#fff'
-                            };
-                            arr.push(option);
-                        }
-                    }
-                }
-                var arrOptionNow=[];
-                var _option=[];
-                for (var i = 0; i < arr.length; i++) {
-                    _option.push({
-                        x: 300,
-                        y: 10,
-                        radius: 3,
-                        color: '#fff'
-                    })
-                }
-                var thisIs=true;
-                var rx,ry;
-                var timer=setInterval(function () {
-                    ctx.clearRect(0, 0, canvas.width, canvas.height);
-                    for (var i = 0; i < arr.length; i++) {
-                        rx=Math.ceil(Math.random()*10);
-                        ry=Math.ceil(Math.random()*10);
-                        //如果arrOption的x比_arrOptionNow的大，-=1
-                        if(_option[i].x>arr[i].x){
-                            if(_option[i].x-arr[i].x<rx){
-                                _option[i].x=arr[i].x;
-                            }
-                            else{
-                                _option[i].x=_option[i].x-rx;
-                            }
-
-                        }
-                        //如果arrOption的x比arr的小，+=1
-                        else if(_option[i].x<arr[i].x){
-                            if(arr[i].x-_option[i].x<rx){
-                                _option[i].x=arr[i].x;
-                            }
-                            else{
-                                _option[i].x=_option[i].x+rx;
-                            }
-                        }
-                        //如果arrOption的y比arr的小，-=1
-                        if(_option[i].y>arr[i].y){
-                            if(_option[i].y-arr[i].y<ry){
-                                _option[i].y=arr[i].y;
-                            }
-                            else{
-                                _option[i].y=_option[i].y-ry;
-                            }
-
-                        }
-                        //如果arrOption的y比arr的小，+=1
-                        else if(_option[i].y<arr[i].y){
-                            if(arr[i].y-_option[i].y<ry){
-                                _option[i].y=arr[i].y;
-                            }
-                            else{
-                                _option[i].y=_option[i].y+ry;
-                            }
-                        }
-                        drawDo(_option[i], ctx);
-                    }
-                    for(var i = 0; i < arr.length; i++){
-                        if(_option[i].x!==arr[i].x||_option[i].y!==arr[i].y){
-                            thisIs=true;
-                            break;
-                        }
-                        thisIs=false;
-                    }
-                    if(!thisIs){
-                        clearInterval(timer);
                     }
                 }, 50)
                 // document.getElementById('body').appendChild(canvas) //离屏canvas展现到界面中看到渲染效果
