@@ -1,0 +1,1 @@
+{"version":3,"names":[],"mappings":"","sources":["css3-demos/reset-text/reset-text.scss"],"sourcesContent":[".big{\r\n  width: 360px;\r\n  margin: 20px auto;\r\n}\r\n.box{\r\n  width: 60px;\r\n  height: 60px;\r\n  float: left;\r\n}"],"file":"../../../css3-demos/reset-text/reset-text.scss"}

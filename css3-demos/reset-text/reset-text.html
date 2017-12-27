@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="/reset.css">
+    <link href="../../dist/css/css3-demos/reset-text/reset-text.css">
+    <style>
+        .big{
+            width: 360px;
+            margin: 20px auto;
+            position: relative;
+        }
+        .boxNow{
+            width: 60px;
+            height: 60px;
+            float: left;
+            background: url("./hou.png") no-repeat;
+            position: absolute;
+            transition: transform 2s ease-in-out;
+        }
+        .box{
+            width: 60px;
+            height: 60px;
+            float: left;
+            background: url("./shou.png") no-repeat;
+            position: absolute;
+            transition: transform 2s ease-in-out;
+        }
+        .box1{
+            background-position: 0 0;
+        }
+        .box2{
+            background-position: -60px 0;
+        }
+        .box3{
+            background-position: -120px 0;
+        }
+        .box4{
+            background-position:  -180px 0;
+        }
+        .box5{
+            background-position:  -240px 0;
+        }
+        .box6{
+            background-position:  -300px 0;
+        }
+        .box7{
+            background-position:  0 -60px;
+        }
+        .box8{
+            background-position: -60px -60px;
+        }
+        .box9{
+            background-position:  -120px -60px;
+        }
+        .box10{
+            background-position:  -180px -60px;
+        }
+        .box11{
+            background-position:  -240px -60px;
+        }
+        .box12{
+            background-position:  -300px -60px;
+        }
+        .box13{
+            background-position:  0 -120px;
+        }
+        .box14{
+            background-position:  -60px -120px;
+        }
+        .box15{
+            background-position:  -120px -120px;
+        }
+        .box16{
+            background-position:  -180px -120px;
+        }
+        .box17{
+            background-position:  -240px -120px;
+        }
+        .box18{
+            background-position:  -300px -120px;
+        }
+        .box19{
+            background-position:  0 -180px;
+        }
+        .box20{
+            background-position:  -60px -180px;
+        }
+        .box21{
+            background-position:  -120px -180px;
+        }
+        .box22{
+            background-position:  -180px -180px;
+        }
+        .box23{
+            background-position:  -240px -180px;
+        }
+        .box24{
+            background-position:  -300px -180px;
+        }
+        .box25{
+            background-position:  0 -240px;
+        }
+        .box26{
+            background-position: -60px -240px;
+        }
+        .box27{
+            background-position: -120px -240px;
+        }
+        .box28{
+            background-position: -180px -240px;
+        }
+        .box29{
+            background-position: -240px -240px;
+        }
+        .box30{
+            background-position: -300px -240px;
+        }
+        .box31{
+            background-position: 0 -300px;
+        }
+        .box32{
+            background-position: -60px -300px;
+        }
+        .box33{
+            background-position: -120px -300px;
+        }
+        .box34{
+            background-position: -180px -300px;
+        }
+        .box35{
+            background-position: -240px -300px;
+        }
+        .box36{
+            background-position: -300px -300px;
+        }
+        .bgp1{
+            transform: translate3d(0,0,0);
+        }
+        .bgp2{
+            transform: translate3d(60px,0,0);
+        }
+        .bgp3{
+            transform: translate3d(120px,0,0);
+        }
+        .bgp4{
+            transform: translate3d(180px,0,0);
+        }
+        .bgp5{
+            transform: translate3d(240px,0,0);
+        }
+        .bgp6{
+            transform: translate3d(300px,0,0);
+        }
+        .bgp7{
+            transform: translate3d(0,60px,0);
+        }
+        .bgp8{
+            transform: translate3d(60px,60px,0);
+        }
+        .bgp9{
+            transform: translate3d(120px,60px,0);
+        }
+        .bgp10{
+            transform: translate3d(180px,60px,0);
+        }
+        .bgp11{
+            transform: translate3d(240px,60px,0);
+        }
+        .bgp12{
+            transform: translate3d(300px,60px,0);
+        }
+        .bgp13{
+            transform: translate3d(0,120px,0);
+        }
+        .bgp14{
+            transform: translate3d(60px,120px,0);
+        }
+        .bgp15{
+            transform: translate3d(120px,120px,0);
+        }
+        .bgp16{
+            transform: translate3d(180px,120px,0);
+        }
+        .bgp17{
+            transform: translate3d(240px,120px,0);
+        }
+        .bgp18{
+            transform: translate3d(300px,120px,0);
+        }
+        .bgp19{
+            transform: translate3d(0,180px,0);
+        }
+        .bgp20{
+            transform: translate3d(60px,180px,0);
+        }
+        .bgp21{
+            transform: translate3d(120px,180px,0);
+        }
+        .bgp22{
+            transform: translate3d(180px,180px,0);
+        }
+        .bgp23{
+            transform: translate3d(240px,180px,0);
+        }
+        .bgp24{
+            transform: translate3d(300px,180px,0);
+        }
+        .bgp25{
+            transform: translate3d(0,240px,0);
+        }
+        .bgp26{
+            transform: translate3d(60px,240px,0);
+        }
+        .bgp27{
+            transform: translate3d(120px,240px,0);
+        }
+        .bgp28{
+            transform: translate3d(180px,240px,0);
+        }
+        .bgp29{
+            transform: translate3d(240px,240px,0);
+        }
+        .bgp30{
+            transform: translate3d(300px,240px,0);
+        }
+        .bgp31{
+            transform: translate3d(0,300px,0);
+        }
+        .bgp32{
+            transform: translate3d(60px,300px,0);
+        }
+        .bgp33{
+            transform: translate3d(120px,300px,0);
+        }
+        .bgp34{
+            transform: translate3d(180px,300px,0);
+        }
+        .bgp35{
+            transform: translate3d(240px,300px,0);
+        }
+        .bgp36{
+            transform: translate3d(300px,300px,0);
+        }
+    </style>
+</head>
+<body>
+
+<div class="big" id="app">
+    <div v-for="item in boxArr" :class="['box'+item,boxClass,'bgp'+boxPosition[item-1]]"></div>
+    <div style="clear: both;"></div>
+</div>
+</body>
+<script src="../../vue-demos/vue.min.js">
+</script>
+<script type="text/javascript">
+    var app=new Vue({
+        el:"#app",
+        data:{
+            boxArr:[],
+            boxClass:'box',
+            boxPosition:[]
+        },
+        mounted:function () {
+            for(var i=0;i<36;i++){
+                this.boxArr.push(i+1);
+                this.boxPosition.push(i+1);
+            }
+            var _this=this;
+            setTimeout(function () {
+                _this.boxPosition.sort(function (n1,n2) {
+                    return Math.random() - 0.5
+                })
+                setTimeout(function () {
+                    _this.boxClass='boxNow';
+                    setTimeout(function () {
+                        _this.boxPosition=Object.assign([],_this.boxArr);
+                    },500)
+                },500)
+//                setTimeout(function () {
+//                    _this.boxPosition=Object.assign([],_this.boxArr);
+//                },2000)
+            },2000)
+
+        }
+    })
+</script>
+</html>
