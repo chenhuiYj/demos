@@ -9,7 +9,7 @@ let babel = require('gulp-babel');
 gulp.task('sass', function () {
     return gulp.src('./**/*.scss')
         .pipe(sourcemaps.init())
-        .pipe(sass().on('error', sass.logError))
+        .pipe(sass())
         .pipe(sourcemaps.write('./maps'))
         .pipe(gulp.dest('./dist/css'));
 });

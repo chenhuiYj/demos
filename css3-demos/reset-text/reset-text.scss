@@ -2,8 +2,19 @@
   width: 360px;
   margin: 20px auto;
 }
-.box{
+.www{
   width: 60px;
   height: 60px;
   float: left;
+}
+@for $i from 1 through 6 {
+  @for $j from 1 through 6 {
+    .box#{($i+(-1))*6+$j}{
+      background-position: -#{($i+(-1))*60}px -#{($j+(-1))*60}px;
+    }
+    .bgp#{($i+(-1))*6+$j} {
+      transform: translate3d(#{($i+(-1))*60}px,#{($j+(-1))*60}px,0);
+      transition-delay: #{.05*$i*$j}s;
+    }
+  }
 }
