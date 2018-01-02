@@ -107,7 +107,7 @@
 </head>
 <body>
 <div id="app">
-    <p class="puke-tips">记住号码牌，在90秒时间内找出相同的号码牌<span v-show="nowTime>0" class="ml30">记忆倒计时：{{nowTime}}</span><span v-show="endTime>0&&nowTime<=0" class="ml30">倒计时：{{endTime}}</span><span v-show="endTime<=0" class="ml30">游戏失败</span></p>
+    <p class="puke-tips">记住牌子，在90秒时间内找出相同的牌子<span v-show="nowTime>0" class="ml30">记忆倒计时：{{nowTime}}</span><span v-show="endTime>0&&nowTime<=0" class="ml30">倒计时：{{endTime}}</span><span v-show="endTime<=0" class="ml30">游戏失败</span></p>
     <div class="puke clearfix" :style="{'transform':'rotate( '+pukeRotate+'deg)'}">
         <ul>
             <li v-for="item,index in puke" @click="pukeDo(item,index)" :class="[isStart||pukeNowIndex===index||pukeErrorIndex===index||checkEnd.indexOf(item.number)!==-1?'pukeNum':'pukeBg']"  :style="{'transform':'rotate( -'+pukeRotate+'deg)'}">
@@ -142,6 +142,9 @@
             endTimer:null
         },
         methods:{
+            /**
+             * @description 初始化翻牌
+             */
             initPuke(){
                 this.pukeShow=!this.pukeShow;
                 if(this.pukeShow){
@@ -176,15 +179,23 @@
                     clearInterval(this.endTimer);
                 }
             },
+            /**
+             * @description 翻牌倒计时
+             */
             pukeIng(){
                 this.endTimer=setInterval(()=>{
-                        this.endTime--;
-                if(this.endTime<0){
-                    clearInterval(this.endTimer);
-                    clearInterval(this.pukeTimer);
-                }
-            },1000)
+                    this.endTime--;
+                    if(this.endTime<0){
+                        clearInterval(this.endTimer);
+                        clearInterval(this.pukeTimer);
+                    }
+                },1000);
             },
+            /**
+             * @description 翻牌操作
+             * @param val 当前记录
+             * @param i 当前记录索引
+             */
             pukeDo(val,i){
                 //号码是否已经有翻过的记录或者不在有效时间内翻牌
                 if(this.isStart||this.endTime<0||this.pukeNowIndex===i||this.checkEnd.indexOf(val.number)!==-1){
@@ -202,6 +213,7 @@
                         this.checkEnd.push(val.number)
                         this.pukeErrorIndex=-1;
                         this.pukeNowIndex=-1;
+                        //如果长度等于8就是全部已经翻完，游戏成功
                         if(this.checkEnd.length===8){
                             alert('游戏成功！');
                             clearInterval(this.endTimer);
@@ -209,13 +221,14 @@
                         }
                     }
                     else{
+                        //翻牌错误，重置
                         this.pukeErrorIndex=i;
                         setTimeout(()=>{
                             this.pukeErrorIndex=-1;
                         this.pukeNowIndex=-1;
+                        //进行旋转
                         this.pukeRotate+=90;
                     },400);
-                        //进行旋转
                     }
                     this.firstNumber=0;
                 }
