@@ -44,7 +44,7 @@
             left: 0;
             height: 100%;
             width: 100%;
-            background: #fff;
+            background: url("test.jpg") no-repeat;
             color: #58B7FF;
             border: 1px solid #ccc;
             font-size: 40px;
@@ -53,6 +53,30 @@
 
         .puke li.pukeBg {
             cursor: pointer;
+        }
+        .puke li .po1{
+            background-position: 0 0;
+        }
+        .puke li .po2{
+            background-position: -100px 0;
+        }
+        .puke li .po3{
+            background-position: -200px 0;
+        }
+        .puke li .po4{
+            background-position: -300px 0;
+        }
+        .puke li .po5{
+            background-position: 0 -100px;
+        }
+        .puke li .po6{
+            background-position: -100px -100px;
+        }
+        .puke li .po7{
+            background-position: -200px -100px;
+        }
+        .puke li .po8{
+            background-position: -300px -100px;
         }
 
         .puke li.pukeBg div {
@@ -88,7 +112,8 @@
         <ul>
             <li v-for="item,index in puke" @click="pukeDo(item,index)" :class="[isStart||pukeNowIndex===index||pukeErrorIndex===index||checkEnd.indexOf(item.number)!==-1?'pukeNum':'pukeBg']"  :style="{'transform':'rotate( -'+pukeRotate+'deg)'}">
                 <div class="zero"></div>
-                <div class="num">{{item.number}}</div>
+                <!--<div class="num" :class="{'po'+item.number}"></div>-->
+                <div class="num" :class="'po'+item.number"></div>
             </li>
         </ul>
 
