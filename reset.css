@@ -10,11 +10,14 @@ em, i {
 ul, li {
     list-style: none;
 }
-.clear:after{
+.clear:after,.clearfix:after{
     display: block;
     content: "";
     clear: both;
 }
 .fllil li{
     float: left;
+}
+.ml30{
+    margin-left: 30px;
 }
