@@ -15,6 +15,8 @@ blur-text:文字模糊
 
 nav:滑动导航
 
+poker:翻牌游戏
+
 shopping-card:购物车清单
 
 slider-img:图片轮播
