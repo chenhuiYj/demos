@@ -67,6 +67,8 @@ nav-select:导航下拉
 
 reset-text:文字重组
 
+switch-img:图片切换
+
 ### html5:html5的demos
 
 picker:canvas时钟

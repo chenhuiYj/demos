@@ -1,0 +1,25 @@
+.big{
+  width: 1200px;
+  height: 800px;
+  li{
+    width: 120px;
+    height: 80px;
+    float: left;
+  }
+}
+@for $i from 1 through 4 {
+  .box#{$i}{
+    z-index: 10;
+    position: absolute;
+    li{
+      background: url("tu#{$i}.jpg") no-repeat;
+    }
+  }
+}
+@for $i from 1 through 10 {
+  @for $j from 1 through 10 {
+  li:nth-of-type(#{($i+(-1))*10+$j}){
+    background-position:  -#{($j+(-1))*120}px -#{($i+(-1))*80}px;;
+  }
+}
+}
