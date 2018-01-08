@@ -67,7 +67,7 @@ nav-select:导航下拉
 
 reset-text:文字重组
 
-switch-img:图片切换
+switch-img:图片切换-随机方块
 
 ### html5:html5的demos
 
