@@ -46,6 +46,16 @@
         <li @mouseenter.stop="nowIndex=5"><span>Tab six</span></li>
     </ul>
     <div class="slider" :style="{'transform':'translate3d('+nowIndex*100+'px,0,0)'}"></div>
+<div>
+    <span @click="obj.test++">{{obj.test}}</span>
+    <span v-for="(item,index) in arr"  @click="change(item)">{{item.id}}</span>
+    <select v-model="testId">
+        <option :value="111">第一个</option>
+        <option :value="222">第二个</option>
+        <option :value="333">第三个</option>
+    </select>
+</div>
+
 </div>
 </body>
 <script src="../vue.min.js"></script>
@@ -53,7 +63,32 @@
    new Vue({
        el:'#nav',
        data:{
-           nowIndex:0
+           nowIndex:0,
+           obj:{
+               test:111
+           },
+           arr: [
+               {
+                   name: '测试1',
+                   id: 1,
+                   isSave: false,
+               },
+               {
+                   name: '测试2',
+                   id: 2,
+                   isSave: false,
+               },
+           ],
+           arr1:[1,2,3,4,5],
+           testId:null
+       },
+       methods:{
+           change:function(item){
+               item.id++;
+           }
+       },
+       mounted:function () {
+           this.testId=222
        }
    })
 </script>

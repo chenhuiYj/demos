@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="/reset.css">
+    <style>
+        .big {
+            width: 360px;
+            margin: 20px auto;
+            position: relative;
+        }
+
+        .boxNow {
+            width: 60px;
+            height: 60px;
+            float: left;
+            background: url("./hou.png") no-repeat;
+            position: absolute;
+            transition: transform 2s ease-in-out;
+        }
+
+        .box {
+            width: 60px;
+            height: 60px;
+            float: left;
+            background: url("./shou.png") no-repeat;
+            position: absolute;
+            transition: transform 2s ease-in-out;
+        }
+
+        .box1 {
+            background-position: -0px -0px;
+        }
+        .bgp0{
+            transform: translate3d(150px, 150px, 0);
+        }
+        .bgp1 {
+            transform: translate3d(0px, 0px, 0);
+            transition-delay: 0.05s;
+        }
+
+        .box2 {
+            background-position: -0px -60px;
+        }
+
+        .bgp2 {
+            transform: translate3d(0px, 60px, 0);
+            transition-delay: 0.1s;
+        }
+
+        .box3 {
+            background-position: -0px -120px;
+        }
+
+        .bgp3 {
+            transform: translate3d(0px, 120px, 0);
+            transition-delay: 0.15s;
+        }
+
+        .box4 {
+            background-position: -0px -180px;
+        }
+
+        .bgp4 {
+            transform: translate3d(0px, 180px, 0);
+            transition-delay: 0.2s;
+        }
+
+        .box5 {
+            background-position: -0px -240px;
+        }
+
+        .bgp5 {
+            transform: translate3d(0px, 240px, 0);
+            transition-delay: 0.25s;
+        }
+
+        .box6 {
+            background-position: -0px -300px;
+        }
+
+        .bgp6 {
+            transform: translate3d(0px, 300px, 0);
+            transition-delay: 0.3s;
+        }
+
+        .box7 {
+            background-position: -60px -0px;
+        }
+
+        .bgp7 {
+            transform: translate3d(60px, 0px, 0);
+            transition-delay: 0.1s;
+        }
+
+        .box8 {
+            background-position: -60px -60px;
+        }
+
+        .bgp8 {
+            transform: translate3d(60px, 60px, 0);
+            transition-delay: 0.2s;
+        }
+
+        .box9 {
+            background-position: -60px -120px;
+        }
+
+        .bgp9 {
+            transform: translate3d(60px, 120px, 0);
+            transition-delay: 0.3s;
+        }
+
+        .box10 {
+            background-position: -60px -180px;
+        }
+
+        .bgp10 {
+            transform: translate3d(60px, 180px, 0);
+            transition-delay: 0.4s;
+        }
+
+        .box11 {
+            background-position: -60px -240px;
+        }
+
+        .bgp11 {
+            transform: translate3d(60px, 240px, 0);
+            transition-delay: 0.5s;
+        }
+
+        .box12 {
+            background-position: -60px -300px;
+        }
+
+        .bgp12 {
+            transform: translate3d(60px, 300px, 0);
+            transition-delay: 0.6s;
+        }
+
+        .box13 {
+            background-position: -120px -0px;
+        }
+
+        .bgp13 {
+            transform: translate3d(120px, 0px, 0);
+            transition-delay: 0.15s;
+        }
+
+        .box14 {
+            background-position: -120px -60px;
+        }
+
+        .bgp14 {
+            transform: translate3d(120px, 60px, 0);
+            transition-delay: 0.3s;
+        }
+
+        .box15 {
+            background-position: -120px -120px;
+        }
+
+        .bgp15 {
+            transform: translate3d(120px, 120px, 0);
+            transition-delay: 0.45s;
+        }
+
+        .box16 {
+            background-position: -120px -180px;
+        }
+
+        .bgp16 {
+            transform: translate3d(120px, 180px, 0);
+            transition-delay: 0.6s;
+        }
+
+        .box17 {
+            background-position: -120px -240px;
+        }
+
+        .bgp17 {
+            transform: translate3d(120px, 240px, 0);
+            transition-delay: 0.75s;
+        }
+
+        .box18 {
+            background-position: -120px -300px;
+        }
+
+        .bgp18 {
+            transform: translate3d(120px, 300px, 0);
+            transition-delay: 0.9s;
+        }
+
+        .box19 {
+            background-position: -180px -0px;
+        }
+
+        .bgp19 {
+            transform: translate3d(180px, 0px, 0);
+            transition-delay: 0.2s;
+        }
+
+        .box20 {
+            background-position: -180px -60px;
+        }
+
+        .bgp20 {
+            transform: translate3d(180px, 60px, 0);
+            transition-delay: 0.4s;
+        }
+
+        .box21 {
+            background-position: -180px -120px;
+        }
+
+        .bgp21 {
+            transform: translate3d(180px, 120px, 0);
+            transition-delay: 0.6s;
+        }
+
+        .box22 {
+            background-position: -180px -180px;
+        }
+
+        .bgp22 {
+            transform: translate3d(180px, 180px, 0);
+            transition-delay: 0.8s;
+        }
+
+        .box23 {
+            background-position: -180px -240px;
+        }
+
+        .bgp23 {
+            transform: translate3d(180px, 240px, 0);
+            transition-delay: 1s;
+        }
+
+        .box24 {
+            background-position: -180px -300px;
+        }
+
+        .bgp24 {
+            transform: translate3d(180px, 300px, 0);
+            transition-delay: 1.2s;
+        }
+
+        .box25 {
+            background-position: -240px -0px;
+        }
+
+        .bgp25 {
+            transform: translate3d(240px, 0px, 0);
+            transition-delay: 0.25s;
+        }
+
+        .box26 {
+            background-position: -240px -60px;
+        }
+
+        .bgp26 {
+            transform: translate3d(240px, 60px, 0);
+            transition-delay: 0.5s;
+        }
+
+        .box27 {
+            background-position: -240px -120px;
+        }
+
+        .bgp27 {
+            transform: translate3d(240px, 120px, 0);
+            transition-delay: 0.75s;
+        }
+
+        .box28 {
+            background-position: -240px -180px;
+        }
+
+        .bgp28 {
+            transform: translate3d(240px, 180px, 0);
+            transition-delay: 1s;
+        }
+
+        .box29 {
+            background-position: -240px -240px;
+        }
+
+        .bgp29 {
+            transform: translate3d(240px, 240px, 0);
+            transition-delay: 1.25s;
+        }
+
+        .box30 {
+            background-position: -240px -300px;
+        }
+
+        .bgp30 {
+            transform: translate3d(240px, 300px, 0);
+            transition-delay: 1.5s;
+        }
+
+        .box31 {
+            background-position: -300px -0px;
+        }
+
+        .bgp31 {
+            transform: translate3d(300px, 0px, 0);
+            transition-delay: 0.3s;
+        }
+
+        .box32 {
+            background-position: -300px -60px;
+        }
+
+        .bgp32 {
+            transform: translate3d(300px, 60px, 0);
+            transition-delay: 0.6s;
+        }
+
+        .box33 {
+            background-position: -300px -120px;
+        }
+
+        .bgp33 {
+            transform: translate3d(300px, 120px, 0);
+            transition-delay: 0.9s;
+        }
+
+        .box34 {
+            background-position: -300px -180px;
+        }
+
+        .bgp34 {
+            transform: translate3d(300px, 180px, 0);
+            transition-delay: 1.2s;
+        }
+
+        .box35 {
+            background-position: -300px -240px;
+        }
+
+        .bgp35 {
+            transform: translate3d(300px, 240px, 0);
+            transition-delay: 1.5s;
+        }
+
+        .box36 {
+            background-position: -300px -300px;
+        }
+
+        .bgp36 {
+            transform: translate3d(300px, 300px, 0);
+            transition-delay: 1.8s;
+        }
+    </style>
+</head>
+<body>
+
+<div class="big" id="app">
+    <div v-for="item in boxArr" :class="['box'+item,boxClass,'bgp'+boxPosition[item-1]]"></div>
+    <div style="clear: both;"></div>
+</div>
+</body>
+<script src="../../vue-demos/vue.min.js">
+</script>
+<script type="text/javascript">
+    var app = new Vue({
+        el: "#app",
+        data: {
+            boxArr: [],
+            boxClass: 'box',
+            boxPosition: [],
+            boxPositionChu: [],
+            boxPositionNow: []
+        },
+        mounted: function () {
+            for (var i = 0; i < 36; i++) {
+                this.boxArr.push(i + 1);
+                this.boxPositionNow.push(i + 1);
+                this.boxPosition.push(0);
+                this.boxPositionChu.push(0);
+            }
+            var _this = this;
+            setTimeout(function () {
+                _this.boxPosition = Object.assign([], _this.boxPositionNow);
+                setTimeout(function () {
+                    _this.boxPosition = Object.assign([], _this.boxPositionChu);
+                    setTimeout(function () {
+                        _this.boxClass = 'boxNow';
+                        _this.boxPosition = Object.assign([], _this.boxPositionNow);
+                    }, 2000)
+                }, 3400)
+            }, 1000)
+
+        }
+    })
+</script>
+</html>
