@@ -47,7 +47,7 @@
         render() {
             return (
                 <div>
-                    <a href="javascript:;" onClick={()=>{this.switchTab(1)}}>第一章</a><a href="javascript:;" onClick={()=>{this.switchTab(2)}}>第二章</a><a href="javascript:;" onClick={()=>{this.switchTab(3)}}>第三章</a>
+                    <a href="javascript:;" onClick={this.switchTab(1)}>第一章</a><a href="javascript:;" onClick={()=>{this.switchTab(2)}}>第二章</a><a href="javascript:;" onClick={()=>{this.switchTab(3)}}>第三章</a>
                     <ul>
                         {this.state.postListNow.map(item =><li key={item.id}>{item.title}</li>)}
                     </ul>
@@ -60,5 +60,25 @@
             <PostList />,
         document.getElementById('example')
     );
+   /*class PostList extends React.Component {
+       constructor(props) {
+           super(props);
+           this.state = {
+               text:'Hello React!'
+           };
+       }
+       render() {
+           return (
+                   <div>
+                       {this.state.text}
+                   </div>
+           );
+       }
+   }
+
+   ReactDOM.render(
+           <PostList />,
+       document.getElementById('example')
+   );*/
 </script>
 </html>
