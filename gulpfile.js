@@ -1,4 +1,3 @@
-'use strict';
 let gulp = require('gulp');
 let sass = require('gulp-sass');
 let sourcemaps = require('gulp-sourcemaps');

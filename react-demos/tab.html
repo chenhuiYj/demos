@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="example"></div>
+</body>
+<script src="react.development.js"></script>
+<script src="react-dom.development.js"></script>
+<script src="babel.min.js"></script>
+<script type="text/babel">
+    class PostList extends React.Component {
+        constructor(props) {
+            super(props);
+            this.state = {
+                postList:[
+                    {
+                        id:1,
+                        title:'第一条'
+                    },
+                    {
+                        id:2,
+                        title:'第二条'
+                    },
+                    {
+                        id:3,
+                        title:'第三条'
+                    }
+                ],
+                postListNow:[]
+            };
+        }
+        componentDidMount (){
+            let _list=JSON.parse(JSON.stringify(this.state.postList));
+            this.setState({
+                postListNow:_list
+            });
+        }
+        switchTab(id){
+            let _list=this.state.postList.filter(item=>item.id==id);
+            this.setState({
+                postListNow:_list
+            });
+        }
+        render() {
+            return (
+                <div>
+                    <a href="javascript:;" onClick={()=>{this.switchTab(1)}}>第一章</a><a href="javascript:;" onClick={()=>{this.switchTab(2)}}>第二章</a><a href="javascript:;" onClick={()=>{this.switchTab(3)}}>第三章</a>
+                    <ul>
+                        {this.state.postListNow.map(item =><li key={item.id}>{item.title}</li>)}
+                    </ul>
+                </div>
+            );
+        }
+    }
+
+    ReactDOM.render(
+            <PostList />,
+        document.getElementById('example')
+    );
+</script>
+</html>
