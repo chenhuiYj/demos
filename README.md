@@ -79,6 +79,10 @@ downloadImg:动态生成图片（邀请卡）
 
 ### es6-demos:es6的demos
 
+### react-demos:react的demos
+
+tab:react开发的tab切换数据
+
 ## 其它说明
 
 1.现在的demo都是es5+css写的，gulp的es6和sass的编译没有进行测试过，大家注意下！
