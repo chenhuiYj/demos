@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="example"></div>
+<div id="example2"></div>
+<script src="../react.development.js"></script>
+<script src="../react-dom.development.js"></script>
+<script src="../babel.min.js"></script>
+<script type="text/babel">
+    class PostList extends React.Component {
+        constructor(props) {
+            super(props);
+            this.state = {
+                postList: props.list,
+                postListNow: []
+            }
+        }
+
+        switchTab(id) {
+            let _list = this.state.postList.filter(item => item.id === id);
+            this.setState({
+                postListNow: _list
+            })
+        }
+
+        componentDidMount() {
+            let _list = this.state.postList;
+            this.setState({
+                postListNow: _list
+            })
+        }
+
+        render() {
+            return (
+                    <div>
+                        <a href="javascript:;" onClick={() => {
+                            this.switchTab(1);
+                        }}>第一章</a>
+                        <a href="javascript:;" onClick={() => {
+                            this.switchTab(2);
+                        }}>第二章</a>
+                        <a href="javascript:;" onClick={() => {
+                            this.switchTab(3);
+                        }}>第三章</a>
+                        <ul>
+                            {this.state.postListNow.map(item => <li key={item.id}>{item.title}</li>)}
+                        </ul>
+                    </div>
+            )
+        }
+    }
+    let postList = [
+        {
+            id: 1,
+            title: '第一条'
+        },
+        {
+            id: 2,
+            title: '第二条'
+        },
+        {
+            id: 3,
+            title: '第三条'
+        }
+    ]
+    ReactDOM.render(
+            <PostList list={postList}/>,
+        document.getElementById('example')
+    );
+
+    class Example2 extends React.Component {
+        constructor(props) {
+            super(props);
+            this.state = {
+                postList: [
+                    {
+                        id: 1,
+                        title: '第一条拷贝'
+                    },
+                    {
+                        id: 2,
+                        title: '第二条拷贝'
+                    },
+                    {
+                        id: 3,
+                        title: '第三条拷贝'
+                    }
+                ],
+            }
+        }
+
+        componentDidMount() {
+            let _list = this.state.postList;
+            //两秒后获取数据
+            setTimeout(() => {
+                _list.forEach((item,index)=>{
+                    item.title='这是一条新生成的记录'+index;
+                });
+                this.setState({
+                    postList: _list
+                })
+            }, 2000)
+        }
+        render(){
+            return (
+                <PostList list={this.state.postList}></PostList>
+            )
+        }
+    }
+    ReactDOM.render(<Example2/>,
+        document.getElementById('example2')
+    );
+</script>
+</body>
+</html>
