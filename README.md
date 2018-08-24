@@ -81,7 +81,9 @@ downloadImg:动态生成图片（邀请卡）
 
 ### react-demos:react的demos
 
-tab:react开发的tab切换数据
+tab:tab切换数据
+
+postComponent:tab切换组件
 
 ## 其它说明
 
