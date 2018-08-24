@@ -3,6 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <style>
+        body{
+            font-family: "微软雅黑";
+        }
+        ul{
+            margin: 0;
+            padding: 0;
+        }
+        .post-box{
+            width: 600px;
+            margin: 30px auto;
+        }
+        .post-box a{
+            display: inline-block;
+            font-size: 14px;
+            margin-right: 10px;
+            width: 80px;
+            height: 30px;
+            line-height: 30px;
+            text-align: center;
+            background: #09f;
+            color: #fff;
+            text-decoration: none;
+        }
+        .post-box li{
+            list-style-type: none;
+            line-height: 40px;
+            padding-left: 10px;
+            border-bottom: 1px solid #ccc;
+        }
+    </style>
 </head>
 <body>
 <div id="example"></div>
@@ -11,6 +42,10 @@
 <script src="../react-dom.development.js"></script>
 <script src="../babel.min.js"></script>
 <script type="text/babel">
+    let _style={
+        background:'#09f',
+        color:'#f3f201'
+    }
     class PostList extends React.Component {
         constructor(props) {
             super(props);
@@ -36,16 +71,16 @@
 
         render() {
             return (
-                    <div>
+                    <div className="post-box">
                         <a href="javascript:;" onClick={() => {
                             this.switchTab(1);
-                        }}>第一章</a>
+                        }} style={_style}>第一章</a>
                         <a href="javascript:;" onClick={() => {
                             this.switchTab(2);
-                        }}>第二章</a>
+                        }} style={_style}>第二章</a>
                         <a href="javascript:;" onClick={() => {
                             this.switchTab(3);
-                        }}>第三章</a>
+                        }} style={_style}>第三章</a>
                         <ul>
                             {this.state.postListNow.map(item => <li key={item.id}>{item.title}</li>)}
                         </ul>
