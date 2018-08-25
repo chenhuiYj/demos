@@ -15,44 +15,52 @@
         constructor(props) {
             super(props);
             this.state = {
-                postList:[
+                equipmentList:[
                     {
                         id:1,
-                        title:'第一条'
+                        title:'歼20'
                     },
                     {
                         id:2,
-                        title:'第二条'
+                        title:'轰6K'
                     },
                     {
                         id:3,
-                        title:'第三条'
+                        title:'运20'
                     }
                 ],
-                postListNow:[]
+                equipmentListNow:[]
             };
         }
         componentDidMount (){
-            let _list=JSON.parse(JSON.stringify(this.state.postList));
+            let _list=JSON.parse(JSON.stringify(this.state.equipmentList));
             this.setState({
-                postListNow:_list
+                equipmentListNow:_list
             });
         }
         switchTab(id){
-            let _list=JSON.parse(JSON.stringify(this.state.postList));
+            let _list=JSON.parse(JSON.stringify(this.state.equipmentList));
             if(id){
                  _list=_list.filter(item=>item.id==id);
             }
             this.setState({
-                postListNow:_list
+                equipmentListNow:_list
             });
         }
         render() {
             return (
                 <div>
-                    <a href="javascript:;" onClick={()=>{this.switchTab(0)}} style={{marginRight:'10px'}}>全部</a><a href="javascript:;" onClick={()=>{this.switchTab(1)}} style={{marginRight:'10px'}}>第一章</a><a href="javascript:;" onClick={()=>{this.switchTab(2)}} style={{marginRight:'10px'}}>第二章</a><a href="javascript:;" onClick={()=>{this.switchTab(3)}} style={{marginRight:'10px'}}>第三章</a>
+                    <a href="javascript:;" onClick={() => {
+                        this.switchTab(1);
+                    }}>歼击机</a>
+                    <a href="javascript:;" onClick={() => {
+                        this.switchTab(2);
+                    }}>轰炸机</a>
+                    <a href="javascript:;" onClick={() => {
+                        this.switchTab(3);
+                    }}>运输机</a>
                     <ul>
-                        {this.state.postListNow.map(item =><li key={item.id}>{item.title}</li>)}
+                        {this.state.equipmentListNow.map(item =><li key={item.id}>{item.title}</li>)}
                     </ul>
                 </div>
             );
