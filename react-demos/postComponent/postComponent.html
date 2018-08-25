@@ -1,9 +1,13 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <meta charset="UTF-8" />
+    <title>Hello React!</title>
+    <script src="https://cdn.bootcss.com/react/16.4.0/umd/react.development.js"></script>
+    <script src="https://cdn.bootcss.com/react-dom/16.4.0/umd/react-dom.development.js"></script>
+    <script src="https://cdn.bootcss.com/babel-standalone/6.26.0/babel.min.js"></script>
     <style>
+
         body{
             font-family: "微软雅黑";
         }
@@ -36,113 +40,108 @@
     </style>
 </head>
 <body>
+
 <div id="example"></div>
 <div id="example2"></div>
-<script src="../react.development.js"></script>
-<script src="../react-dom.development.js"></script>
-<script src="../babel.min.js"></script>
 <script type="text/babel">
     let _style={
         background:'#09f',
         color:'#f3f201'
     }
-    class PostList extends React.Component {
+    class EquipmentList extends React.Component {
         constructor(props) {
             super(props);
             this.state = {
-                postList: props.list,
-                postListNow: []
+                //根据props获取数据
+                equipmentList: this.props.list,
+                equipmentListNow: []
             }
         }
-
         switchTab(id) {
-            let _list = this.state.postList.filter(item => item.id === id);
+            let _list = this.state.equipmentList.filter(item => item.id === id);
             this.setState({
-                postListNow: _list
+                equipmentListNow: _list
             })
         }
-
         componentDidMount() {
-            let _list = this.state.postList;
+            let _list = this.state.equipmentList;
             this.setState({
-                postListNow: _list
+                equipmentListNow: _list
             })
         }
-
         render() {
             return (
-                    <div className="post-box">
+                    <div className='post-box'>
                         <a href="javascript:;" onClick={() => {
                             this.switchTab(1);
-                        }} style={_style}>第一章</a>
+                        }}>歼击机</a>
                         <a href="javascript:;" onClick={() => {
                             this.switchTab(2);
-                        }} style={_style}>第二章</a>
+                        }}>轰炸机</a>
                         <a href="javascript:;" onClick={() => {
                             this.switchTab(3);
-                        }} style={_style}>第三章</a>
+                        }}>运输机</a>
                         <ul>
-                            {this.state.postListNow.map(item => <li key={item.id}>{item.title}</li>)}
+                            {this.state.equipmentListNow.map(item => <li key={item.id}>{item.title}</li>)}
                         </ul>
                     </div>
             )
         }
     }
-    let postList = [
+    let equipmentList = [
         {
             id: 1,
-            title: '第一条'
+            title: '歼20'
         },
         {
             id: 2,
-            title: '第二条'
+            title: '轰6K'
         },
         {
             id: 3,
-            title: '第三条'
+            title: '运20'
         }
     ]
     ReactDOM.render(
-            <PostList list={postList}/>,
+            <EquipmentList list={equipmentList}/>,
         document.getElementById('example')
     );
-
     class Example2 extends React.Component {
         constructor(props) {
             super(props);
             this.state = {
-                postList: [
+                equipmentList: [
                     {
                         id: 1,
-                        title: '第一条拷贝'
+                        title: '歼20-量产型号'
                     },
                     {
                         id: 2,
-                        title: '第二条拷贝'
+                        title: '轰6K-量产型号'
                     },
                     {
                         id: 3,
-                        title: '第三条拷贝'
+                        title: '运20-量产型号'
                     }
                 ],
             }
         }
 
         componentDidMount() {
-            let _list = this.state.postList;
-            //两秒后获取数据
+            let _list = this.state.equipmentList;
+            //两秒后更新数据
             setTimeout(() => {
                 _list.forEach((item,index)=>{
-                    item.title='这是一条新生成的记录'+index;
+                    item.title='其实这是一艘航空母舰'+index;
                 });
                 this.setState({
-                    postList: _list
+                    equipmentList: _list
                 })
             }, 2000)
         }
         render(){
             return (
-                <PostList list={this.state.postList}></PostList>
+                    <EquipmentList list={this.state.equipmentList}></EquipmentList>
             )
         }
     }
@@ -150,5 +149,6 @@
         document.getElementById('example2')
     );
 </script>
+
 </body>
 </html>
