@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>Hello React!</title>
+    <script src="../react.development.js"></script>
+    <script src="../react-dom.development.js"></script>
+    <script src="../babel.min.js"></script>
+    <style>
+
+        body{
+            font-family: "微软雅黑";
+        }
+        ul{
+            margin: 0;
+            padding: 0;
+        }
+        .post-box{
+            width: 600px;
+            margin: 30px auto;
+        }
+        .post-box a{
+            display: inline-block;
+            font-size: 14px;
+            margin-right: 10px;
+            width: 80px;
+            height: 30px;
+            line-height: 30px;
+            text-align: center;
+            background: #09f;
+            color: #fff;
+            text-decoration: none;
+        }
+        .post-box li{
+            list-style-type: none;
+            line-height: 40px;
+            padding-left: 10px;
+            border-bottom: 1px solid #ccc;
+        }
+    </style>
+</head>
+<body>
+
+<div id="example"></div>
+<script type="text/babel">
+    class EquipmentList extends React.Component {
+        constructor(props) {
+            super(props);
+            this.state = {
+                //根据props获取数据
+                equipmentList: this.props.list,
+                equipmentListNow: []
+            }
+        }
+        switchTab(id) {
+            let _list = this.state.equipmentList.filter(item => item.id === id);
+            this.setState({
+                equipmentListNow: _list
+            })
+        }
+        componentDidMount() {
+            let _list = this.state.equipmentList;
+            this.setState({
+                equipmentListNow: _list
+            })
+        }
+        render() {
+            return (
+                    <div className='post-box'>
+                        <a href="javascript:;" onClick={() => {
+                            this.switchTab(1);
+                        }}>歼击机</a>
+                        <a href="javascript:;" onClick={() => {
+                            this.switchTab(2);
+                        }}>轰炸机</a>
+                        <a href="javascript:;" onClick={() => {
+                            this.switchTab(3);
+                        }}>运输机</a>
+                        <ul>
+                            {this.state.equipmentListNow.map(item => <li key={item.id}>{item.title}</li>)}
+                        </ul>
+                    </div>
+            )
+        }
+    }
+    //设置 props 默认值
+    EquipmentList.defaultProps={
+        list:[
+            {
+                id: 1,
+                title: '歼20'
+            },
+            {
+                id: 2,
+                title: '轰6K'
+            },
+            {
+                id: 3,
+                title: '运20'
+            }
+        ]
+    }
+    ReactDOM.render(<EquipmentList/>,
+        document.getElementById('example')
+    );
+</script>
+
+</body>
+</html>
