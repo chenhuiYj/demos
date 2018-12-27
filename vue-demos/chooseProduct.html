@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .cur{
+            color: #00FF99;
+        }
+        .dis{
+            color: #ccc;
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+    <div v-for="item in typeList">
+        {{item.label}}
+        <a href="javascript:;" v-for="sub in item.children" @click="choose(sub.label,sub.type)" style="margin-right: 10px" :class="{'cur':checked[sub.type]===sub.label}">{{sub.label}}</a>
+    </div>
+
+    <div style="margin-top: 100px">
+        产品列表:
+        <p v-for="item in nowProductList"> {{item.label}}</p>
+    </div>
+</div>
+</body>
+<script src="vue.min.js"></script>
+<script>
+    var App = new Vue({
+        el: '#app',
+        data: {
+            typeList: [
+                {
+                    id: 1,
+                    label: '颜色',
+                    children: [
+                        {
+                            id: 2,
+                            label: '蓝色',
+                            type: 'color'
+                        },
+                        {
+                            id: 3,
+                            label: '黄色',
+                            type: 'color'
+                        }
+                    ]
+                },
+                {
+                    id: 4,
+                    label: '类型',
+                    children: [
+                        {
+                            id: 5,
+                            label: 'T恤',
+                            type: 'type'
+                        },
+                        {
+                            id: 6,
+                            label: '毛衣',
+                            type: 'type'
+                        }
+                    ]
+                }
+            ],
+            productList: [
+                {
+                    id: 1,
+                    label: '蓝色长袖T恤',
+                    type: 'T恤',
+                    color: '蓝色',
+                    age:18
+                },
+                {
+                    id: 1,
+                    label: '黄色短袖袖T恤',
+                    type: 'T恤',
+                    color: '黄色',
+                    age:16
+                },
+                {
+                    id: 1,
+                    label: '蓝色长袖毛衣',
+                    color: '蓝色',
+                    type: '毛衣',
+                    age:15
+                }
+            ],
+            nowProductList: [],//根据选择条件过滤的产品
+            checked: {},//已选择条件
+            filterRules:['color','type','age'],
+            nowFilterRules:[]
+        },
+        methods: {
+            choose(label,type){
+                //筛选产品
+                this.checked[type]=label;
+                let _list=JSON.parse(JSON.stringify(this.productList));
+                for(let key in this.checked){
+                    _list = _list.filter(item=>item[key]===this.checked[key]);
+                }
+                this.nowProductList=_list;
+                //设置按钮是否可点
+                this.nowFilterRules=[];
+                this.nowFilterRules=this.filterRules.filter(item=>item!==type);
+                for(let i=0;i<this.nowFilterRules.length;i++){
+
+                }
+            },
+        },
+        created(){
+            this.nowProductList=JSON.parse(JSON.stringify(this.productList));
+            this.checkedNowProduct=JSON.parse(JSON.stringify(this.productList));
+        }
+
+
+    });
+</script>
+</html>
