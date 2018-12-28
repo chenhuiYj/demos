@@ -16,7 +16,7 @@
 <div id="app">
     <div v-for="item in typeList">
         {{item.label}}
-        <a href="javascript:;" v-for="sub in item.children" @click="choose(sub.label,sub.type)" style="margin-right: 10px" :class="{'cur':checked[sub.type]===sub.label}">{{sub.label}}</a>
+        <a href="javascript:;" v-for="sub in item.children" @click="choose(sub.label,sub.type)" style="margin-right: 10px" :class="{'cur':checked[sub.type]===sub.label,'dis':all.indexOf(sub.label)===-1&&!endFilterRules[sub.type]}">{{sub.label}}</a>
     </div>
 
     <div style="margin-top: 100px">
@@ -106,10 +106,15 @@
             nowProductList: [],//根据选择条件过滤的产品
             checked: {},//已选择条件
             filterRules:['color','type','age'],
-            nowFilterRules:[]
+            nowFilterRules:[],
+            endFilterRules:[],
+            all:[]
         },
         methods: {
             choose(label,type){
+                if(this.all.indexOf(label)===-1&&!this.endFilterRules[type]){
+                    return;
+                }
                 //筛选产品
                 this.checked[type]=label;
                 let _list=JSON.parse(JSON.stringify(this.productList));
@@ -119,15 +124,29 @@
                 this.nowProductList=_list;
                 //设置按钮是否可点
                 this.nowFilterRules=[];
+                this.all=[];
                 this.nowFilterRules=this.filterRules.filter(item=>item!==type);
-                for(let i=0;i<this.nowFilterRules.length;i++){
-
+                this.endFilterRules[type]=true;
+                console.log(this.endFilterRules);
+                for(let i=0;i<this.nowProductList.length;i++){
+                    for(let j=0;j<this.nowFilterRules.length;j++){
+                        this.all.push(this.nowProductList[i][this.nowFilterRules[j]]);
+                    }
                 }
+                console.log(this.all)
             },
         },
         created(){
             this.nowProductList=JSON.parse(JSON.stringify(this.productList));
             this.checkedNowProduct=JSON.parse(JSON.stringify(this.productList));
+            this.nowFilterRules=[];
+            this.all=[];
+            this.nowFilterRules=JSON.parse(JSON.stringify(this.filterRules));
+            for(let i=0;i<this.nowProductList.length;i++){
+                for(let j=0;j<this.nowFilterRules.length;j++){
+                    this.all.push(this.nowProductList[i][this.nowFilterRules[j]]);
+                }
+            }
         }
 
 
